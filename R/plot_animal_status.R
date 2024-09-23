@@ -48,9 +48,9 @@ plot_animal_status <- function(model_result) {
     ) +
     labs(
       x = "Simulation Time (Hours)",
-      y = "Agent ID",
-      fill = "Agent Status",
-      title = "Agent Status Over Time in Simulation"
+      y = "Animal ID",
+      fill = "Animal Status",
+      title = "Simulated Animal Status"
     ) +
     scale_x_continuous(expand = c(0, 0)) +
     scale_y_continuous(breaks = unique(status_data$id)) +
