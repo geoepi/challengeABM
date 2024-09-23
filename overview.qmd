@@ -1,0 +1,59 @@
+---
+title: "challengeABM: Vignette and overview"  
+description: " "
+format: 
+   gfm:
+     toc: true
+     toc-depth: 2
+     code-fold: show
+     code-summary: "Hide code"
+     preview-mode: raw
+editor_options: 
+  chunk_output_type: console
+---
+
+## Description  
+The **challangeABM** package is a set of functions for simulating virus transmission between 18 head of cattle.  At simulation start, cattle (agents) are divided among five isolated rooms, with two donor cattle in Room 1, and four cattle in each of the other rooms, Rooms 2-5.  On simulation hour 1, the two donor cattle are inoculated by a virus.  The donor cattle remain isolated from other cattle for a 24hr period, then at the 24hr mark, the donor cattle (now infected) are moved to Room 2.  At the next 24hr interval (48 hours since start of simulation), the donor cattle leave Room 2 and proceed to Room 3, where they remain for a 24hr period.  The process continues with donors moving to Room 4 at 72hrs and Room 5 at 96hrs.  
+       
+Depending on the quantity of virus in the donor cattle, they may or may not infect others.  The quantity of virus in nasal passages and in blood serum has been calibrated to replicate like Foot-and-Mouth Disease Virus (FMDV).  
+ 
+The status of individual cattle virus loads, clinical presentation, and other factors are recorded on an hourly basis. 
+     
+Virus and cattle parameters may be specified in configuration files to simulate changes to infectivity and virulence.  Eventually, **challangeABM** will be updated to allow changes in time intervals (minutes, hours, days,...), the number of rooms, and the number of animals in each room.  
+   
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
+library(here)
+library(tidyverse)
+options(dplyr.summarise.inform = FALSE)
+library(pals)
+```
+
+## Load challengeABM
+```{r}
+library(challengeABM)
+```
+
+## Run the simulation 
+First, set random seed for reproducible runs.   
+```{r}
+seed_val <- round(runif(1, 100, 300),0)
+seed_val 
+set.seed(seed_val)
+```
+  
+Run the simulation based using a configuration file with needed parameters..      
+```{r}
+model_result <- simulate_abm_with_transmission(here("config/default_config.yaml"))
+```
+
+## Within-Host Dynamics  
+View change in nasal and virus quantities within individual animals.
+```{r fig.width=8, fig.height=10}
+plot_individual_virus_loads(model_result)
+```
+
+## Status of Individual Animals   
+View the disease status of individual animals.  
+```{r fig.width=8, fig.height=8}
+plot_animal_status(model_result)
+```
