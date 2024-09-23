@@ -48,7 +48,7 @@ model_result <- simulate_abm_with_transmission(here("config/default_config.yaml"
 
 ## Within-Host Dynamics  
 View change in nasal and virus quantities within individual animals.
-```{r fig.width=8, fig.height=10}
+```{r fig.width=8, fig.height=15}
 plot_individual_virus_loads(model_result)
 ```
 
