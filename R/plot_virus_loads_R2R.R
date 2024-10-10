@@ -1,15 +1,16 @@
-plot_individual_virus_loads <- function(model_result, sample_n = NULL) {
+plot_virus_loads_R2R <- function(model_result) {
 
-    agent_ids <- model_result$final_results %>%
-      distinct(id) %>%
-      sample_n(sample_n) %>%
-      pull(id)
+    agent_trajectories <- model_result$final_results
 
-    agent_trajectories <- model_result$final_results %>%
-      filter(id %in% agent_ids) %>%
-      select(time, id, virus_nasal, virus_serum)
+    agent_trajectories$group <- cut(agent_trajectories$id,
+                                    breaks = c(-Inf, 2, 6, 10, 14, 18),
+                                    labels = c("Donors", "Group 1", "Group 2", "Group 3", "Group 4"),
+                                    right = TRUE)
 
-    names(agent_trajectories) <- c("Time", "Animal", "Nasal", "Serum")
+    agent_trajectories <- agent_trajectories %>%
+      select(time, group, id, virus_nasal, virus_serum)
+
+    names(agent_trajectories) <- c("Time", "Group", "Animal", "Nasal", "Serum")
 
     long_data <- agent_trajectories %>%
       pivot_longer(cols = c(Nasal, Serum), names_to = "Type", values_to = "Value") %>%
@@ -17,7 +18,7 @@ plot_individual_virus_loads <- function(model_result, sample_n = NULL) {
 
     ggplot(long_data, aes(x = Time, y = Value, color = Animal, group = Animal)) +
       geom_line() +
-      facet_wrap(~ Type, ncol = 2, scales = "free_y") +
+      facet_wrap(~ Group + Type, ncol = 2, scales = "free_y") +
       labs(title = "Nasal and Serum Virus Dynamics",
            x = "Time",
            y = "RNA (log10 copies/ml)") +

@@ -1,13 +1,14 @@
-num_infected: 2
-num_non_infected_per_room: 4
-num_hours: 360
+num_donors: 5
+total_herd_size: 100
+contact_rate: 0.5
+num_hours: 720
 delta_t: 1
 dose_scaling_factor: 10
 dose_max_efficiency: 0.4
 dose_efficiency_at_threshold: 0.15
 dose_threshold: 0.8
 nasal_threshold_mean: 7.6
-nasal_threshold_sd: 0.2
+nasal_threshold_sd: 0.1
 serum_threshold_mean: 6.7
 serum_threshold_sd: 0.2
 infect_threshold_mean: 6.3
@@ -30,5 +31,6 @@ nasal_ccap_mean: 10
 nasal_ccap_sd: 0.2
 serum_ccap_mean: 9
 serum_ccap_sd: 0.2
-num_rooms: 5
-donor_move_interval: 24
+preclin_infect: FALSE
+recovery_time_mean: 12
+recovery_time_sd: 1

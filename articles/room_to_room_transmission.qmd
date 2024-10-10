@@ -49,7 +49,7 @@ model_result <- simulate_room_to_room(here("config/default_R2R_config.yaml"))
 ## Within-Host Dynamics  
 View change in nasal and virus quantities within individual animals.
 ```{r fig.width=8, fig.height=15}
-plot_individual_virus_loads(model_result)
+plot_virus_loads_R2R(model_result)
 ```
 
 ## Status of Individual Animals   
