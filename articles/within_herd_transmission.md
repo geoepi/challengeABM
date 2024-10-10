@@ -8,8 +8,8 @@ challengeABM: Within Herd Transmission
   simulation</a>
 - <a href="#within-host-dynamics"
   id="toc-within-host-dynamics">Within-Host Dynamics</a>
-- <a href="#status-of-individual-animals"
-  id="toc-status-of-individual-animals">Status of Individual Animals</a>
+- <a href="#herd-outbreak-curve" id="toc-herd-outbreak-curve">Herd
+  Outbreak Curve</a>
 
 ## Description
 
@@ -56,7 +56,7 @@ seed_val
 
 </details>
 
-    [1] 252
+    [1] 119
 
 <details open>
 <summary>Hide code</summary>
@@ -94,7 +94,7 @@ plot_individual_virus_loads(model_result, sample_n = 21)
 
 ![](within_herd_transmission_files/figure-commonmark/unnamed-chunk-5-1.png)
 
-## Status of Individual Animals
+## Herd Outbreak Curve
 
 Compare the number of infected and recovered individuals.
 

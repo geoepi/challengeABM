@@ -24,7 +24,7 @@ plot_individual_virus_loads <- function(model_result, sample_n = NULL) {
       scale_color_viridis_d(option = "turbo", name = "Animal", guide = guide_legend(nrow = 3)) +
       scale_y_continuous(labels = scales::number_format(accuracy = 0.1)) +
       theme_minimal() +
-      theme(plot.margin = unit(c(1,0.75,1,0.75),"cm"),
+      theme(plot.margin = unit(c(0.5,0.5,0.5,0.5),"cm"),
             legend.direction = "horizontal",
             legend.position="bottom",
             strip.text = element_text(size=14, face="bold"),
