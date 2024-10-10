@@ -17,7 +17,7 @@ plot_individual_virus_loads <- function(model_result, sample_n = NULL) {
 
     ggplot(long_data, aes(x = Time, y = Value, color = Animal, group = Animal)) +
       geom_line() +
-      facet_wrap(~ Type, ncol = 2, scales = "free_y") +
+      facet_wrap(~ Type, ncol = 1, scales = "free_y") +
       labs(title = "Nasal and Serum Virus Dynamics",
            x = "Time",
            y = "RNA (log10 copies/ml)") +

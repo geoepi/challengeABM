@@ -46,7 +46,7 @@ model_result <- simulate_within_herd(here("config/default_herd_config.yaml"))
 
 ## Within-Host Dynamics  
 Randomly select 21 animals.
-```{r fig.width=10, fig.height=8}
+```{r fig.width=10, fig.height=10}
 plot_individual_virus_loads(model_result, sample_n = 21)
 ```
 
