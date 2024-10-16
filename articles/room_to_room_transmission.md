@@ -10,6 +10,7 @@ challengeABM: Room-to-Room Transmission
   id="toc-within-host-dynamics">Within-Host Dynamics</a>
 - <a href="#status-of-individual-animals"
   id="toc-status-of-individual-animals">Status of Individual Animals</a>
+- <a href="#iterate" id="toc-iterate">Iterate</a>
 
 ## Description
 
@@ -64,7 +65,7 @@ seed_val
 
 </details>
 
-    [1] 167
+    [1] 117
 
 <details open>
 <summary>Hide code</summary>
@@ -116,3 +117,21 @@ plot_animal_status(model_result)
 </details>
 
 ![](room_to_room_transmission_files/figure-commonmark/unnamed-chunk-6-1.png)
+
+## Iterate
+
+Additional function for multiple iterations.
+
+<details open>
+<summary>Hide code</summary>
+
+``` r
+iterate_R2R(simulate_room_to_room, # function
+            config_file = here("config/default_R2R_config.yaml"), # settings to run
+            num_iterations = 1000, # total iterations
+            write_interval = 50, # write to csv every write_interval
+            output_directory = here("local/test") # where to write
+)
+```
+
+</details>
