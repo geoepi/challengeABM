@@ -33,4 +33,3 @@ iterate_R2R <- function(simulate_room_to_room, config_file = NULL, num_iteration
     return(NULL)
   }
 }
-

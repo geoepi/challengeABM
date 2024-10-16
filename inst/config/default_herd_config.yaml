@@ -1,5 +1,5 @@
-num_donors: 2
-total_herd_size: 5000
+num_donors: 5
+total_herd_size: 100
 contact_rate: 0.5
 num_hours: 720
 delta_t: 1

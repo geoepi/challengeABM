@@ -60,14 +60,13 @@ plot_animal_status(model_result)
 
 
 ## Iterate  
-Additional function for multiple iterations.
+Additional function for multiple iterations.  See *iterate_parallel()* for parallel processing.   
 ```{r eval=FALSE}
 iterate_R2R(simulate_room_to_room, # function
             config_file = here("config/default_R2R_config.yaml"), # settings to run
-            num_iterations = 1000, # total iterations
-            write_interval = 50, # write to csv every write_interval
-            output_directory = here("local/test") # where to write
+            num_iterations = 50, # total iterations
+            write_interval = 10, # write to csv every write_interval
+            output_directory = here("local/test"), # where to write
+            use_parallel = TRUE, num_cores = 8
 )
-
 ```
-
