@@ -1,3 +1,5 @@
+## Too expensive to export the environment to all workers...  this needs work.
+
 iterate_parallel <- function(simulation_function, config_file = NULL, num_iterations,
                                  output_directory = getwd(), num_cores = parallel::detectCores()) {
 
