@@ -65,7 +65,7 @@ seed_val
 
 </details>
 
-    [1] 117
+    [1] 139
 
 <details open>
 <summary>Hide code</summary>
@@ -128,9 +128,10 @@ Additional function for multiple iterations.
 ``` r
 iterate_R2R(simulate_room_to_room, # function
             config_file = here("config/default_R2R_config.yaml"), # settings to run
-            num_iterations = 1000, # total iterations
-            write_interval = 50, # write to csv every write_interval
-            output_directory = here("local/test") # where to write
+            num_iterations = 50, # total iterations
+            write_interval = 10, # write to csv every write_interval
+            output_directory = here("local/test"), # where to write
+            use_parallel = TRUE, num_cores = 8
 )
 ```
 
