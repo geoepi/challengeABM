@@ -10,13 +10,13 @@ nasal_threshold_mean: 7.6
 nasal_threshold_sd: 0.2
 serum_threshold_mean: 6.7
 serum_threshold_sd: 0.2
-infect_threshold_mean: 5.5
+infect_threshold_mean: 6.1
 infect_threshold_sd: 0.2
-growth_rate_nasal_mean: 2.8
+growth_rate_nasal_mean: 3.6
 growth_rate_nasal_sd: 0.2
 growth_rate_serum_mean: 2.6
 growth_rate_serum_sd: 0.2
-clearance_rate_mean: 0.5
+clearance_rate_mean: 0.6
 clearance_rate_sd: 0.2
 stochastic_noise_mean: 0.5
 stochastic_noise_sd: 0.2
