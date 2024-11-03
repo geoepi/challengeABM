@@ -11,4 +11,8 @@ https://github.com/geoepi/challengeABM/blob/main/articles/within_herd_transmissi
 ### Simplified Room-to-Rooom ShinyApp:   
 https://geoepi.shinyapps.io/fmdv-preclinical/    
 
-
+## Install: 
+```
+library(remotes)
+remotes::install_github("geoepi/challengeABM")
+```
