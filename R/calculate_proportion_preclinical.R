@@ -1,40 +1,43 @@
-calculate_proportion_preclinical <- function(data_path, n_iterations = 1000, seed = 123) {
+calculate_proportion_preclinical <- function(data_path, n_iterations = 100, seed = 123) {
 
-  set.seed(seed)
+  set.seed(seed) # for bootstrapping
 
-  # CSV files
+  # files
   file_list <- list.files(
     path = data_path,
     pattern = "final_results_iteration_.*\\.csv",
     full.names = TRUE
   )
 
-  # function to process each file
+  # process each file
   proportion_preclinical <- function(file_name) {
 
-    dt <- fread(
+    dt <- read_csv(
       file_name,
-      select = c("time", "id", "infection_status", "virus_nasal", "virus_serum", "score", "trial")
+      col_types = cols(
+        time = col_double(),
+        id = col_character(),
+        infection_status = col_character(),
+        virus_nasal = col_double(),
+        virus_serum = col_double(),
+        score = col_double(),
+        trial = col_integer()
+      )
     )
 
-    dt[, time := as.numeric(time)]
-    dt[, virus_nasal := as.numeric(virus_nasal)]
-    dt[, virus_serum := as.numeric(virus_serum)]
-    dt[, score := as.numeric(score)]
-    dt[, trial := as.integer(trial)]
-
-    # filter infected animals by trial
-    infected_animals <- unique(dt[infection_status == "infected", .(trial, id)])
+    # infected animals by trial
+    infected_animals <- dt %>%
+      filter(infection_status == "infected") %>%
+      distinct(trial, id)
 
     if (nrow(infected_animals) == 0) {
       return(NULL)
     }
 
-    dt_infected <- merge(dt, infected_animals, by = c("trial", "id"))
-
-    dt_infected <- dt_infected[
-      (!is.na(virus_nasal) & virus_nasal >= 0) & (!is.na(virus_serum) & virus_serum >= 0)
-    ]
+    # infected animals
+    dt_infected <- dt %>%
+      inner_join(infected_animals, by = c("trial", "id")) %>%
+      filter(!is.na(virus_nasal) & virus_nasal >= 0 & !is.na(virus_serum) & virus_serum >= 0)
 
     if (nrow(dt_infected) == 0) {
       return(NULL)
@@ -43,81 +46,93 @@ calculate_proportion_preclinical <- function(data_path, n_iterations = 1000, see
     results_list <- list()
 
     for (virus_type in c("virus_nasal", "virus_serum")) {
-
-      dt_infected_copy <- copy(dt_infected)
-
-      # Set S(τ)
-      dt_infected_copy[, S_tau := get(virus_type)]
+      dt_infected_copy <- dt_infected %>%
+        mutate(S_tau = .data[[virus_type]])
 
       # clinical onset
-      clinical_onset <- dt_infected_copy[score > 0, .(t_clinical = min(time)), by = .(trial, id)]
+      clinical_onset <- dt_infected_copy %>%
+        filter(score > 0) %>%
+        group_by(trial, id) %>%
+        summarize(t_clinical = min(time, na.rm = TRUE), .groups = "drop")
 
-      # Merge clinical onset times back into main data
-      dt_infected_copy <- merge(dt_infected_copy, clinical_onset, by = c("trial", "id"), all.x = TRUE)
+      # merge back
+      dt_infected_copy <- dt_infected_copy %>%
+        left_join(clinical_onset, by = c("trial", "id"))
 
       # time since infection
-      infection_times <- dt_infected_copy[, .(t_infection = min(time)), by = .(trial, id)]
-      dt_infected_copy <- merge(dt_infected_copy, infection_times, by = c("trial", "id"), all.x = TRUE)
-      dt_infected_copy[, tau := time - t_infection]
+      infection_times <- dt_infected_copy %>%
+        group_by(trial, id) %>%
+        summarize(t_infection = min(time, na.rm = TRUE), .groups = "drop")
 
-      # all before clinical
-      dt_infected_copy[, pre_clinical := ifelse(is.na(t_clinical), TRUE, time < t_clinical)]
+      dt_infected_copy <- dt_infected_copy %>%
+        left_join(infection_times, by = c("trial", "id")) %>%
+        mutate(
+          tau = time - t_infection,
+          pre_clinical = if_else(is.na(t_clinical), TRUE, time < t_clinical)
+        )
 
-      # time intervals
-      dt_infected_copy <- dt_infected_copy[order(trial, id, tau)]
-      dt_infected_copy[, delta_tau := shift(tau, type = "lead") - tau, by = .(trial, id)]
-      dt_infected_copy[is.na(delta_tau), delta_tau := 0]  # Last time point
-
-      dt_infected_copy[, S_delta_tau := S_tau * delta_tau]
-      dt_infected_copy[, S_pre_clinical := S_tau * pre_clinical * delta_tau]
+      # calculate
+      dt_infected_copy <- dt_infected_copy %>%
+        arrange(trial, id, tau) %>%
+        group_by(trial, id) %>%
+        mutate(
+          delta_tau = lead(tau, default = last(tau)) - tau,
+          delta_tau = replace_na(delta_tau, 0),
+          S_delta_tau = S_tau * delta_tau,
+          S_pre_clinical = S_tau * pre_clinical * delta_tau
+        ) %>%
+        ungroup()
 
       # aggregate by animal
-      results <- dt_infected_copy[, .(
-        virus_type = virus_type,
-        theta_numerator = sum(S_pre_clinical, na.rm = TRUE),
-        theta_denominator = sum(S_delta_tau, na.rm = TRUE)
-      ), by = .(trial, id)]
+      results <- dt_infected_copy %>%
+        group_by(trial, id) %>%
+        summarize(
+          virus_type = virus_type,
+          theta_numerator = sum(S_pre_clinical, na.rm = TRUE),
+          theta_denominator = sum(S_delta_tau, na.rm = TRUE),
+          .groups = "drop"
+        )
 
       results_list[[virus_type]] <- results
     }
 
-    combined_results <- rbindlist(results_list)
-
+    combined_results <- bind_rows(results_list)
     return(combined_results)
   }
 
-  results_list <- list()
+  # process and combine
+  results_list <- file_list %>%
+    map(proportion_preclinical) %>%
+    compact()
 
-  # each file
-  for (file_name in file_list) {
-    file_results <- proportion_preclinical(file_name)
-    if (!is.null(file_results)) {
-      results_list[[length(results_list) + 1]] <- file_results
-    }
-  }
-
-  # combine
-  all_results <- rbindlist(results_list, use.names = TRUE, fill = TRUE)
+  all_results <- bind_rows(results_list)
 
   # calculate theta by animal
-  all_results[, theta := theta_numerator / theta_denominator]
+  all_results <- all_results %>%
+    mutate(theta = theta_numerator / theta_denominator)
 
-  # bootstrapping for confint intervals
-  bootstrap_results <- data.table()
-  for (i in 1:n_iterations) {
-    sample_data <- all_results[sample(.N, replace = TRUE)]
-    theta_values <- sample_data[, .(
-      theta = sum(theta_numerator, na.rm = TRUE) / sum(theta_denominator, na.rm = TRUE)
-    ), by = virus_type]
-    theta_values[, iteration := i]
-    bootstrap_results <- rbindlist(list(bootstrap_results, theta_values), use.names = TRUE)
-  }
+  # bootstrapping for confidence intervals
+  bootstrap_results <- replicate(n_iterations, {
+    sample_data <- all_results %>%
+      sample_frac(replace = TRUE)
 
-  confint_intervals <- bootstrap_results[, .(
-    theta_mean = mean(theta),
-    lower_ci = quantile(theta, probs = 0.025),
-    upper_ci = quantile(theta, probs = 0.975)
-  ), by = virus_type]
+    sample_data %>%
+      group_by(virus_type) %>%
+      summarize(
+        theta = sum(theta_numerator, na.rm = TRUE) / sum(theta_denominator, na.rm = TRUE),
+        .groups = "drop"
+      )
+  }, simplify = FALSE) %>%
+    bind_rows(.id = "iteration")
+
+  confint_intervals <- bootstrap_results %>%
+    group_by(virus_type) %>%
+    summarize(
+      theta_mean = mean(theta),
+      lower_ci = quantile(theta, probs = 0.025),
+      upper_ci = quantile(theta, probs = 0.975),
+      .groups = "drop"
+    )
 
   return(confint_intervals)
 }

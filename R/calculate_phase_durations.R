@@ -6,68 +6,92 @@ calculate_phase_durations <- function(data_path) {
     full.names = TRUE
   )
 
-
   process_file <- function(file_name) {
 
-    dt <- fread(
+    dt <- read_csv(
       file_name,
-      select = c("time", "id", "infection_status", "infectious_t", "score", "is_donor", "room", "trial")
+      col_types = cols(
+        time = col_double(),
+        id = col_character(),
+        infection_status = col_character(),
+        infectious_t = col_double(),
+        score = col_double(),
+        is_donor = col_logical(),
+        room = col_character(),
+        trial = col_character()
+      )
     )
 
-    # data types
-    dt[, time := as.numeric(time)]
-    dt[, infectious_t := as.numeric(infectious_t)]
-    dt[, score := as.numeric(score)]
-
     # infection time
-    infection_times <- dt[infection_status == "infected", .(infection_time = min(time)), by = .(trial, id)]
+    infection_times <- dt %>%
+      filter(infection_status == "infected") %>%
+      group_by(trial, id) %>%
+      summarize(infection_time = min(time, na.rm = TRUE), .groups = "drop")
 
     # infectious time
-    infectious_times <- dt[!is.na(infectious_t), .(infectious_t = min(infectious_t)), by = .(trial, id)]
+    infectious_times <- dt %>%
+      filter(!is.na(infectious_t)) %>%
+      group_by(trial, id) %>%
+      summarize(infectious_t = min(infectious_t, na.rm = TRUE), .groups = "drop")
 
-    # Calculate clinical symptom time
-    clinical_times <- dt[score > 0, .(clinical_symptom_time = min(time)), by = .(trial, id)]
+    # clinical symptoms
+    clinical_times <- dt %>%
+      filter(score > 0) %>%
+      group_by(trial, id) %>%
+      summarize(clinical_symptom_time = min(time, na.rm = TRUE), .groups = "drop")
 
-    animal_times <- merge(infection_times, infectious_times, by = c("trial", "id"), all = TRUE)
-    animal_times <- merge(animal_times, clinical_times, by = c("trial", "id"), all = TRUE)
+    # merge
+    animal_times <- infection_times %>%
+      full_join(infectious_times, by = c("trial", "id")) %>%
+      full_join(clinical_times, by = c("trial", "id"))
 
-    # durations
-    animal_times[, latent_period := infectious_t - infection_time]
-    animal_times[, subclinical_period := clinical_symptom_time - infectious_t]
-    animal_times[, incubation_period := clinical_symptom_time - infection_time]
+    # calculate durations
+    animal_times <- animal_times %>%
+      mutate(
+        latent_period = infectious_t - infection_time,
+        subclinical_period = clinical_symptom_time - infectious_t,
+        incubation_period = clinical_symptom_time - infection_time
+      )
 
-    group_info <- dt[!is.na(room), .(is_donor = unique(is_donor), room = unique(room)), by = .(trial, id)]
-    animal_times <- merge(animal_times, group_info, by = c("trial", "id"), all.x = TRUE)
-    animal_times[, room_number := as.numeric(gsub("[^0-9]", "", room))]
+    group_info <- dt %>%
+      filter(!is.na(room)) %>%
+      distinct(trial, id, is_donor, room)
 
-    # labels
-    animal_times[, group := ifelse(is_donor == TRUE, "Donor",
-                                   ifelse(room_number %in% 2:5, paste0("Room ", room_number), "Unknown"))]
+    # merge
+    animal_times <- animal_times %>%
+      left_join(group_info, by = c("trial", "id")) %>%
+      mutate(
+        room_number = as.numeric(str_extract(room, "\\d+")),
+        group = case_when(
+          is_donor ~ "Donor",
+          room_number %in% 2:5 ~ paste0("Room ", room_number),
+          TRUE ~ "Unknown"
+        )
+      )
 
-    return(animal_times)
+    animal_times %>%
+      select(trial, id, group, latent_period, subclinical_period, incubation_period)
   }
 
-  summary_list <- lapply(file_list, process_file)
-  summary_data <- rbindlist(summary_list, use.names = TRUE, fill = TRUE)
+  # process each file
+  summary_data <- file_list %>%
+    map_dfr(process_file)
 
-  summary_data[is.na(group), group := "Unknown"]
+  melted_data <- summary_data %>%
+    filter(!is.na(latent_period), !is.na(subclinical_period), !is.na(incubation_period)) %>%
+    pivot_longer(
+      cols = c("latent_period", "subclinical_period", "incubation_period"),
+      names_to = "Period",
+      values_to = "Duration"
+    ) %>%
+    mutate(
+      Period = factor(
+        Period,
+        levels = c("latent_period", "subclinical_period", "incubation_period"),
+        labels = c("Latent", "Subclinical", "Incubation")
+      )
+    )
 
-  summary_data <- summary_data[!is.na(latent_period) & !is.na(subclinical_period) & !is.na(incubation_period)]
-
-  melted_data <- melt(
-    summary_data,
-    id.vars = c("id", "trial", "group"),
-    measure.vars = c("latent_period", "subclinical_period", "incubation_period"),
-    variable.name = "Period",
-    value.name = "Duration"
-  )
-
-  # labels
-  melted_data[, Period := factor(
-    Period,
-    levels = c("latent_period", "subclinical_period", "incubation_period"),
-    labels = c("Latent", "Subclinical", "Incubation")
-  )]
-
-  return(melted_data)
+  melted_data %>%
+    select(id, trial, group, Period, Duration)
 }
