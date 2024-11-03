@@ -14,6 +14,7 @@ calculate_no_infection_percent <- function(data_path) {
     "5" = c(15:18)
   )
 
+
   results <- list()
 
   for (room in names(room_picks)) {
