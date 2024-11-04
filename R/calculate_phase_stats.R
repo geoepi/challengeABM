@@ -1,12 +1,10 @@
 calculate_phase_stats <- function(melted_data, units = "hours") {
 
-  # duration to days
   if (units == "days") {
     melted_data <- melted_data %>%
       mutate(Duration = Duration / 24)
   }
 
-  # function to calculate mean and confidence intervals
   calc_mean_ci <- function(x) {
     n <- length(x)
     mean_x <- mean(x, na.rm = TRUE)
@@ -16,7 +14,6 @@ calculate_phase_stats <- function(melted_data, units = "hours") {
     return(list(mean = mean_x, lower_ci = ci_lower, upper_ci = ci_upper))
   }
 
-  # calculate statistics
   stats <- melted_data %>%
     group_by(group, Period) %>%
     summarize(
@@ -26,8 +23,27 @@ calculate_phase_stats <- function(melted_data, units = "hours") {
       median_duration = median(Duration, na.rm = TRUE),
       min_duration = min(Duration, na.rm = TRUE),
       max_duration = max(Duration, na.rm = TRUE),
+      quantile_0.025 = quantile(Duration, 0.025, na.rm = TRUE),
+      quantile_0.05 = quantile(Duration, 0.05, na.rm = TRUE),
+      quantile_0.25 = quantile(Duration, 0.25, na.rm = TRUE),
+      quantile_0.75 = quantile(Duration, 0.75, na.rm = TRUE),
+      quantile_0.95 = quantile(Duration, 0.95, na.rm = TRUE),
+      quantile_0.975 = quantile(Duration, 0.975, na.rm = TRUE),
       .groups = "drop"
-    )
+    ) %>%
+
+    mutate(across(where(is.numeric), ~ round(., 2))) %>%
+
+    mutate(
+      Duration = paste0(
+        formatC(median_duration, format = "f", digits = 2),
+        " (",
+        formatC(quantile_0.25, format = "f", digits = 2), ", ",
+        formatC(quantile_0.75, format = "f", digits = 2),
+        ")"
+      )
+    ) %>%
+    select(group, Period, Duration, everything())
 
   return(stats)
 }
