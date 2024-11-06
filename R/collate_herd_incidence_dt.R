@@ -1,6 +1,8 @@
 # this version uses data.table package to speed up wrangling
 collate_herd_incidence_dt <- function(data_path, min_incidence = 2) {
 
+  require(data.table)
+
   file_list <- list.files(
     path = data_path,
     pattern = "results_.*_herd_clin.csv",
