@@ -1,5 +1,5 @@
 # may be slow for large simulations, see collate_herd_incidence_dt
-collate_herd_incidence <- function(data_path, min_incidence = 5) {
+collate_herd_incidence <- function(data_path, min_incidence = 2) {
 
   file_list <- list.files(
     path = data_path,

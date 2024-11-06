@@ -1,5 +1,5 @@
 # uses data.table
-calculate_outbreak_metrics <- function(data_path, min_incidence = 5) {
+calculate_outbreak_metrics <- function(data_path, min_incidence = 2) {
 
   file_list <- list.files(
     path = data_path,
@@ -61,6 +61,11 @@ calculate_outbreak_metrics <- function(data_path, min_incidence = 5) {
     latent_n_lower = quantile(latent_n, 0.25, na.rm = TRUE),
     latent_n_upper = quantile(latent_n, 0.75, na.rm = TRUE)
   )]
+
+  summary_metrics <- as.data.frame(t(summary_metrics)) %>%
+    tibble::rownames_to_column(var = "Metric") %>%
+    rename(Value = 2) %>%
+    select(Metric, Value)
 
   return(summary_metrics)
 }

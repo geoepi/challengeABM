@@ -1,5 +1,5 @@
 # this version uses data.table package to speed up wrangling
-collate_herd_incidence_dt <- function(data_path, min_incidence = 5) {
+collate_herd_incidence_dt <- function(data_path, min_incidence = 2) {
 
   file_list <- list.files(
     path = data_path,
