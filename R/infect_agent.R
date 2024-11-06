@@ -9,7 +9,8 @@ infect_agent <- function(agent_id, agents, current_time,
                          inflection_point_mean, inflection_point_sd,
                          growth_cease_mean, growth_cease_sd,
                          nasal_ccap_mean, nasal_ccap_sd,
-                         serum_ccap_mean, serum_ccap_sd) {
+                         serum_ccap_mean, serum_ccap_sd,
+                         infector_id = NULL) {
 
   # if already infected and this is not the initial infection, return
   if (agents$infect_agent[agent_id] && !initial_infection) {
@@ -19,6 +20,11 @@ infect_agent <- function(agent_id, agents, current_time,
   # infect agent
   agents$infect_agent[agent_id] <- TRUE
   agents$infection_status[agent_id] <- "infected"
+
+  # record infector id
+  if (!is.null(infector_id) && is.na(agents$infector_id[agent_id])) {
+    agents$infector_id[agent_id] <- infector_id
+  }
 
   if (initial_infection) {
 

@@ -95,7 +95,8 @@ simulate_herd_contacts_and_transmissions <- function(
                 nasal_ccap_mean = nasal_ccap_mean,
                 nasal_ccap_sd = nasal_ccap_sd,
                 serum_ccap_mean = serum_ccap_mean,
-                serum_ccap_sd = serum_ccap_sd
+                serum_ccap_sd = serum_ccap_sd,
+                infector_id = infectious_agent_id
               )
             }
           }

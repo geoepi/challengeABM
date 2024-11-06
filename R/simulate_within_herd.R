@@ -63,6 +63,7 @@ simulate_within_herd <- function(config_file = NULL, ...) {
   final_results$is_donor <- FALSE
   final_results$score <- 0
   final_results$infectious_t <- NA
+  final_results$infector_id <- NA
 
   # infect initial donor agents
   for (agent_id in 1:num_donors) {
@@ -98,7 +99,7 @@ simulate_within_herd <- function(config_file = NULL, ...) {
 
     # 1. update virus for infected agents
     for (agent_id in which(agents$infect_agent)) {
-      agent <- agents[agent_id, , drop = FALSE]  # Ensure agent is a data frame
+      agent <- agents[agent_id, , drop = FALSE]
       agent <- update_agent_virus_dynamics(agent, current_time, delta_t)
       agents[agent_id, ] <- agent
 
@@ -107,6 +108,7 @@ simulate_within_herd <- function(config_file = NULL, ...) {
       final_results$virus_nasal[idx] <- agent$virus_nasal
       final_results$virus_serum[idx] <- agent$virus_serum
       final_results$infection_status[idx] <- agents$infection_status[agent_id]
+      final_results$infector_id[idx] <- agents$infector_id[agent_id]
 
       # record infectious time
       if (preclin_infect && is.na(agents$infectious_t[agent_id]) && agent$virus_nasal >= agent$infect_threshold) {

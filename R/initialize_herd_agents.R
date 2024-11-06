@@ -42,7 +42,8 @@ initialize_herd_agents <- function(num_donors, total_herd_size,
     infection_time = rep(NA, total_herd_size),
     score = rep(0, total_herd_size),
     recovery_time = recovery_time,
-    has_recovered = rep(FALSE, total_herd_size)
+    has_recovered = rep(FALSE, total_herd_size),
+    infector_id = rep(NA, total_herd_size)
   )
 
   # set donors

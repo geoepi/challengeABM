@@ -1,11 +1,10 @@
 Package: challengeABM
 Type: Package
-Title: What the Package Does (Title Case)
+Title: ABM for Simulation of Within-host Virus Dynamics
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Author: GeoEpi
+Maintainer: The package maintainer <jmh09r@my.fsu.edu>
+Description: Simulation of virus nasal shedding and blood serum replication witin and between hosts.
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
