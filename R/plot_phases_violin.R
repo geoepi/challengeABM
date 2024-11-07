@@ -1,4 +1,5 @@
-plot_phases_violin <- function(data, colors = c('steelblue', 'darkorange', 'darkgreen')) {
+plot_phases_violin <- function(data, y_max = 9, colors = c('steelblue', 'darkorange', 'darkgreen')) {
+
   ggplot(data, aes(x = group, y = Duration / 24, fill = Period)) +
     geom_violin(position = position_dodge(width = 0.75), alpha=0.3, color = "gray20") +
     stat_summary(
@@ -17,7 +18,7 @@ plot_phases_violin <- function(data, colors = c('steelblue', 'darkorange', 'dark
       y = "Duration (days)",
       fill = "Phase"
     ) +
-    ylim(0, 8) +
+    ylim(0, y_max) +
     theme_minimal() +
     theme(
       plot.margin = unit(c(1, 0.75, 1, 0.75), "cm"),
