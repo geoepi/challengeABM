@@ -32,9 +32,11 @@ collate_herd_incidence_dt <- function(data_path, min_incidence = 2) {
   message(sprintf("Number of trials filtered: %d", num_trials_filtered))
   message(sprintf("Number of trials retained: %d", num_trials_retained))
 
+  # Calculate counts of infected, recovered, and clinical cases per trial and time
   infections_per_trial <- filtered_data[, .(
     infected_count = sum(infection_status == "infected"),
-    recovered_count = sum(infection_status == "recovered")
+    recovered_count = sum(infection_status == "recovered"),
+    clinical_count = sum(infection_status == "infected" & score > 0)
   ), by = .(time, trial)]
 
   # stats
@@ -44,7 +46,10 @@ collate_herd_incidence_dt <- function(data_path, min_incidence = 2) {
     upper_infected = quantile(infected_count, 0.975),
     median_recovered = median(recovered_count),
     lower_recovered = quantile(recovered_count, 0.025),
-    upper_recovered = quantile(recovered_count, 0.975)
+    upper_recovered = quantile(recovered_count, 0.975),
+    median_clinical = median(clinical_count),
+    lower_clinical = quantile(clinical_count, 0.025),
+    upper_clinical = quantile(clinical_count, 0.975)
   ), by = time]
 
   return(infections_trend)

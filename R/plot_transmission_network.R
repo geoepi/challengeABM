@@ -1,6 +1,6 @@
-plot_transmission_network <- function(file_path, layout_type = "graphopt", seed = NULL) {
+plot_transmission_network <- function(agent_file_path, layout_type = "graphopt", seed = NULL) {
 
-  agent_data <- read.csv(file_path)
+  agent_data <- read.csv(agent_file_path)
 
   if (!all(c("id", "infector_id", "is_donor") %in% colnames(agent_data))) {
     stop("The CSV file must contain 'id', 'infector_id', and 'is_donor' columns.")

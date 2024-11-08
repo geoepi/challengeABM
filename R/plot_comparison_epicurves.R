@@ -8,8 +8,8 @@ plot_comparison_epicurves <- function(clinical_scenario, preclinical_scenario) {
   combined_trends_long <- combined_trends %>%
     select(time, median_infected, scenario)
 
-  line_colors = c("Clinical" = "darkorange2", "Preclinical" = "dodgerblue")
-  ribbon_colors = c("Clinical" = "darkorange2", "Preclinical" = "dodgerblue")
+  line_colors = c("Preclinical" = "orange2", "Clinical" = "steelblue")
+  ribbon_colors = c("Preclinical" = "orange2", "Clinical" = "steelblue")
 
   ggplot() +
     geom_ribbon(data = combined_trends, aes(x = time, ymin = lower_infected, ymax = upper_infected, fill = scenario),
