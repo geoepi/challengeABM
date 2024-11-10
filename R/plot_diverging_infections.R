@@ -56,7 +56,6 @@ plot_diverging_infections <- function(clinical_scenario, preclinical_scenario, p
     theme_minimal() +
     theme(
       plot.margin = unit(c(1, 0.75, 1, 0.75), "cm"),
-      legend.position.inside = TRUE,
       legend.position = c(0.3, 0.8),
       legend.direction = "vertical",
       legend.key.size = unit(2, "line"),

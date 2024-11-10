@@ -41,14 +41,14 @@ calculate_R0_from_network <- function(data_path) {
   R0_estimates <- unlist(R0_estimates)
 
   if (length(R0_estimates) == 0) {
-    stop("No valid R0 estimates found in the files. Please check the data.")
+    stop("Insufficient number of infections to calculate R0. Check the data.")
   }
 
   R0_summary <- data.frame(
     median_R0 = median(R0_estimates, na.rm = TRUE),
     lower_R0 = quantile(R0_estimates, 0.025, na.rm = TRUE),
     upper_R0 = quantile(R0_estimates, 0.975, na.rm = TRUE),
-    removed_files = removed_files_count,  # files with no infections
+    removed_files = removed_files_count,  # files with no infections, other than hosts
     row.names = NULL
   )
 
