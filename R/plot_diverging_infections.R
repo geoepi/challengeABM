@@ -41,7 +41,7 @@ plot_diverging_infections <- function(clinical_scenario, preclinical_scenario, p
   )
 
   ggplot(plot_data, aes(x = day, y = median_count, fill = portion)) +
-    geom_col() +
+    geom_col(col="gray70") +
     coord_flip() +
     scale_x_reverse(limits = c(max(plot_data$day, na.rm = TRUE), 0), breaks = seq(0, max(plot_data$day, na.rm = TRUE), by = 1)) +
     scale_fill_manual(

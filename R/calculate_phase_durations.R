@@ -13,26 +13,30 @@ calculate_phase_durations <- function(data_path, sim_type = "R2R") {
     infection_times <- dt %>%
       filter(infection_status == "infected") %>%
       group_by(trial, id) %>%
-      summarize(infection_time = ifelse(any(!is.na(time)), min(time, na.rm = TRUE), NA_real_), .groups = "drop")
+      summarize(infection_time = ifelse(any(!is.na(time)), min(time, na.rm = TRUE), NA_real_), .groups = "drop") %>%
+      distinct(trial, id, .keep_all = TRUE)
 
     # infectious time
     infectious_times <- dt %>%
       filter(!is.na(infectious_t)) %>%
       group_by(trial, id) %>%
-      summarize(infectious_t = ifelse(any(!is.na(infectious_t)), min(infectious_t, na.rm = TRUE), NA_real_), .groups = "drop")
+      summarize(infectious_t = ifelse(any(!is.na(infectious_t)), min(infectious_t, na.rm = TRUE), NA_real_), .groups = "drop") %>%
+      distinct(trial, id, .keep_all = TRUE)
 
     # clinical symptoms
     clinical_times <- dt %>%
       filter(score > 0) %>%
       group_by(trial, id) %>%
-      summarize(clinical_symptom_time = ifelse(any(!is.na(time)), min(time, na.rm = TRUE), NA_real_), .groups = "drop")
+      summarize(clinical_symptom_time = ifelse(any(!is.na(time)), min(time, na.rm = TRUE), NA_real_), .groups = "drop") %>%
+      distinct(trial, id, .keep_all = TRUE)
 
     # merge
     animal_times <- infection_times %>%
       full_join(infectious_times, by = c("trial", "id")) %>%
-      full_join(clinical_times, by = c("trial", "id"))
+      full_join(clinical_times, by = c("trial", "id")) %>%
+      distinct(trial, id, .keep_all = TRUE)  # ensure no duplicates after merging
 
-    # calculate durations
+    # calculate duration
     animal_times <- animal_times %>%
       mutate(
         latent_period = ifelse(!is.na(infectious_t) & !is.na(infection_time), infectious_t - infection_time, NA_real_),
@@ -43,7 +47,8 @@ calculate_phase_durations <- function(data_path, sim_type = "R2R") {
     if (sim_type == "R2R") {
       group_info <- dt %>%
         filter(!is.na(room)) %>%
-        distinct(trial, id, is_donor, room)
+        distinct(trial, id, is_donor, room) %>%
+        distinct(trial, id, .keep_all = TRUE)
 
       # merge and group assignment for R2R
       animal_times <- animal_times %>%
@@ -58,9 +63,9 @@ calculate_phase_durations <- function(data_path, sim_type = "R2R") {
         )
 
     } else if (sim_type == "herd") {
-
       group_info <- dt %>%
-        distinct(trial, id, is_donor)
+        distinct(trial, id, is_donor) %>%
+        distinct(trial, id, .keep_all = TRUE)
 
       animal_times <- animal_times %>%
         left_join(group_info, by = c("trial", "id")) %>%
@@ -72,15 +77,17 @@ calculate_phase_durations <- function(data_path, sim_type = "R2R") {
         )
     }
 
+    # ensure no duplicates
     animal_times %>%
-      select(trial, id, group, latent_period, subclinical_period, incubation_period)
+      select(trial, id, group, latent_period, subclinical_period, incubation_period) %>%
+      distinct(trial, id, group, .keep_all = TRUE)
   }
 
   # process each file
   summary_data <- file_list %>%
     map_dfr(process_file)
 
-  # verify presence of columns before pivoting
+  # verify columns
   if (all(c("latent_period", "subclinical_period", "incubation_period") %in% colnames(summary_data))) {
     melted_data <- summary_data %>%
       pivot_longer(
@@ -95,11 +102,12 @@ calculate_phase_durations <- function(data_path, sim_type = "R2R") {
           levels = c("latent_period", "subclinical_period", "incubation_period"),
           labels = c("Latent", "Subclinical", "Incubation")
         )
-      )
+      ) %>%
+      distinct(trial, id, group, Period, .keep_all = TRUE)
 
-    melted_data %>%
-      select(id, trial, group, Period, Duration)
+    return(melted_data %>%
+      select(id, trial, group, Period, Duration))
   } else {
-    stop("Required columns for pivoting are missing in the processed data.")
+    stop("Required columns missing.")
   }
 }

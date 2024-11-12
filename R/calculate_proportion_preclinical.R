@@ -1,3 +1,5 @@
+# this function is intended for room-to-room simulation only. The dividend in the reported ratio is study duration, not total infectious period.
+
 calculate_proportion_preclinical <- function(data_path, n_iterations = 100, seed = 123) {
 
   set.seed(seed) # for bootstrapping
