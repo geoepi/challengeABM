@@ -41,12 +41,15 @@ plot_diverging_infections <- function(clinical_scenario, preclinical_scenario, p
   )
 
   ggplot(plot_data, aes(x = day, y = median_count, fill = portion)) +
-    geom_col(col="gray70") +
+    geom_col(col="transparent", linewidth =0.15) +
     coord_flip() +
     scale_x_reverse(limits = c(max(plot_data$day, na.rm = TRUE), 0), breaks = seq(0, max(plot_data$day, na.rm = TRUE), by = 1)) +
     scale_fill_manual(
       values = fill_colors
     ) +
+    geom_hline(yintercept = 0,
+               col= "gray20",
+               linewidth = 0.35) +
     scale_y_continuous(labels = abs, name = "Number of Cattle") +  # General label to encompass both metrics
     labs(
       title = " ",
@@ -56,7 +59,7 @@ plot_diverging_infections <- function(clinical_scenario, preclinical_scenario, p
     theme_minimal() +
     theme(
       plot.margin = unit(c(1, 0.75, 1, 0.75), "cm"),
-      legend.position = c(0.3, 0.8),
+      legend.position = "none", #c(0.3, 0.8),
       legend.direction = "vertical",
       legend.key.size = unit(2, "line"),
       legend.text = element_text(size = 16, face = "bold"),
