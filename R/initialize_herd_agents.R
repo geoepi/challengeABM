@@ -8,7 +8,7 @@ initialize_herd_agents <- function(num_donors, total_herd_size,
   nasal_threshold <- rnorm(total_herd_size, nasal_threshold_mean, nasal_threshold_sd)
   serum_threshold <- rnorm(total_herd_size, serum_threshold_mean, serum_threshold_sd)
   infect_threshold <- rnorm(total_herd_size, infect_threshold_mean, infect_threshold_sd)
-  recovery_time <- rnorm(total_herd_size, recovery_time_mean, recovery_time_sd) * 24  # days to hours
+  recovery_time <- rnorm(total_herd_size, recovery_time_mean, recovery_time_sd)
 
   # recovery_time must be positive
   recovery_time <- pmax(recovery_time, 0)
@@ -46,11 +46,12 @@ initialize_herd_agents <- function(num_donors, total_herd_size,
     infector_id = rep(NA, total_herd_size)
   )
 
-  # set donors
-  agents$infection_status[1:num_donors] <- "infected"
-  agents$infect_agent[1:num_donors] <- TRUE
-  agents$is_donor[1:num_donors] <- TRUE
-  agents$infection_time[1:num_donors] <- 0
+  if (num_donors > 0) {
+    agents$infection_status[1:num_donors] <- "infected"
+    agents$infect_agent[1:num_donors] <- TRUE
+    agents$is_donor[1:num_donors] <- TRUE
+    agents$infection_time[1:num_donors] <- 0
+  }
 
   return(agents)
 }

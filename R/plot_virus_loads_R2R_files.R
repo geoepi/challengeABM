@@ -86,12 +86,20 @@ plot_virus_loads_R2R_files <- function(data_path, sample_files_proportion = 1, s
     xmax = max_time
   )
 
+  # background shading for exposure period
+  background_shading <- data.frame(
+    Group = c("Donors", "Group 1", "Group 2", "Group 3", "Group 4"),
+    xmin = c(0, 1, 2, 3, 4),
+    xmax = c(1, 2, 3, 4, 5)
+  )
+
   plot <- ggplot(long_data, aes(x = Time / 24, y = Value, color = Animal, group = Animal)) +
     geom_rect(data = vline_data, aes(xmin = xmin, xmax = xmax, ymin = -Inf, ymax = Inf),
               fill = "gray50", alpha = 0.2, inherit.aes = FALSE) +
+    geom_rect(data = background_shading, aes(xmin = xmin, xmax = xmax, ymin = -Inf, ymax = Inf),
+              fill = "tan3", alpha = 0.5, inherit.aes = FALSE) +
     geom_line(alpha = line_alpha, linewidth = 0.2) +
     geom_vline(data = vline_data, aes(xintercept = xintercept), linetype = "dashed", color = "gray20") +
-    #facet_wrap(~ Group + Type, ncol = 2, scales = "free_y") +
     facet_grid(rows = vars(Group), cols = vars(Type), scales = "free_y") +
     labs(title = "Nasal and Serum Virus Dynamics",
          x = "Experiment Day",
