@@ -1,16 +1,17 @@
 # challengeABM: Agent-Based Model of FMDV Transmission
 An Agent Based Model (ABM) simulating within-host virus dynamics, within-herd host transmission, and between-farm spread    
 
-This work is in draft form, has not been verified, and is subject to change.  
+This work is in draft form, has not been verified, and is subject to change. 
+
+## Overview, Design concepts, Details (ODD)
+A [detailed ODD available HERE](https://github.com/geoepi/challengeABM/blob/main/ODD_Decription.md) 
    
-### Room-to-Room Overview:  
-https://github.com/geoepi/challengeABM/blob/main/articles/room_to_room_transmission.md  
+### [Room-to-Room Overview](https://github.com/geoepi/challengeABM/blob/main/articles/room_to_room_transmission.md)  
   
-### Within Herd Overview:  
-https://github.com/geoepi/challengeABM/blob/main/articles/within_herd_transmission.md  
+### [Within-Herd Overview](https://github.com/geoepi/challengeABM/blob/main/articles/within_herd_transmission.md)  
    
-### Simplified Room-to-Rooom ShinyApp:   
-https://geoepi.shinyapps.io/fmdv-preclinical/    
+### [Simplified Room-to-Rooom ShinyApp](https://geoepi.shinyapps.io/fmdv-preclinical/)  
+  
 
 ## Install: 
 ```
@@ -20,7 +21,7 @@ remotes::install_github("geoepi/challengeABM")
 ---
 ---
 
-## Table of Contents
+## Brief Summary TOC  
 
 * [Overview](#overview)
 * [Model Purpose](#model-purpose)
