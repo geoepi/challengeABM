@@ -4,7 +4,7 @@ description: "Overview, Design concepts, Details"
 format: 
    gfm:
      toc: true
-     toc-depth: 2
+     toc-depth: 4
      code-fold: show
      code-summary: "Hide code"
      preview-mode: raw
@@ -66,7 +66,7 @@ The model includes the following types of entities:
 **Agent (Cattle) State Variables:**
 
 | Variable Name | Description | Type | Units/Range | Dynamic/Static |
-|:-----------|:------------------------|:-----------|:-----------|:-----------|
+|:------------|:-------------------|:------------|:------------|:------------|
 | `id` | Unique identifier for the agent. | Integer | N/A | Static |
 | `infection_status` | Current infection class: "Noninfectious", "Preclinical", "Clinical", "recovered". | Categorical | As listed | Dynamic |
 | `infect_agent` | Logical flag indicating if the agent is currently infected. | Boolean | TRUE/FALSE | Dynamic |
@@ -102,7 +102,7 @@ The model includes the following types of entities:
 **Farm State Variables (Between-Farm Module):**
 
 | Variable Name | Description | Type | Units/Range | Dynamic/Static |
-|:----------|:----------------------------|:----------|:----------|:----------|
+|:------------|:---------------------|:------------|:------------|:------------|
 | `id` | Unique identifier for the farm. | Integer | N/A | Static |
 | `agent_population` | Collection of cattle agents residing on the farm. | List | N/A | Dynamic |
 | `herd_size` | Number of animals on the farm. | Integer | e.g., 200-500 | Static (initially) |

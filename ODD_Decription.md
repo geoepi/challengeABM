@@ -4,6 +4,19 @@ challengeABM: Overview, Design concepts, Details
 - <a href="#comprehensive-odd-description-for-challengeabm"
   id="toc-comprehensive-odd-description-for-challengeabm">Comprehensive
   ODD Description for challengeABM</a>
+  - <a href="#purpose-and-patterns" id="toc-purpose-and-patterns">1. Purpose
+    and Patterns</a>
+  - <a href="#entities-state-variables-and-scales"
+    id="toc-entities-state-variables-and-scales">2. Entities, State
+    Variables, and Scales</a>
+  - <a href="#process-overview-and-scheduling"
+    id="toc-process-overview-and-scheduling">3. Process Overview and
+    Scheduling</a>
+  - <a href="#design-concepts" id="toc-design-concepts">4. Design
+    Concepts</a>
+  - <a href="#initialization" id="toc-initialization">5. Initialization</a>
+  - <a href="#input-data" id="toc-input-data">6. Input Data</a>
+  - <a href="#submodels" id="toc-submodels">7. Submodels</a>
 
 ## Comprehensive ODD Description for challengeABM
 
