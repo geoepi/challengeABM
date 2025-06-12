@@ -69,4 +69,10 @@ animals_moved_frac: 0.20              # Fraction of herd moved per event
 transmission_prob: 0.2                # Probability of transmission per contact (between-farms)
 detection_delay_hours: 120            # Delay (hours) between clinical detection and quarantine enforcement
 detection_triggers_quarantine: TRUE   # Whether clinical detection triggers quarantine
-seed: 1980                             # Random seed for reproducibility (controls network graph and random draws)
+seed: 300                             # Random seed for reproducibility (controls network graph and random draws)
+
+# Room-to-Room Criteria
+num_infected: 2
+num_non_infected_per_room: 4
+num_rooms: 5                       # Number of rooms, Room 1 is where donor inoculation occurs
+donor_move_interval: 24            # Donor movement frquency
