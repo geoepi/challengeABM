@@ -51,8 +51,8 @@ simulate_within_herd <- function(config_file = NULL, ...) {
     serum_threshold_sd = serum_threshold_sd,
     infect_threshold_mean = infect_threshold_mean,
     infect_threshold_sd = infect_threshold_sd,
-    recovery_time_mean = recovery_time_mean,
-    recovery_time_sd = recovery_time_sd
+    recovery_time_mean = recovery_time_mean*24, # to hours
+    recovery_time_sd = recovery_time_sd*24 # to hours
   )
 
   # initialize final_results

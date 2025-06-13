@@ -97,7 +97,7 @@ The primary purpose of `challengeABM` is to:
 
 * **Focus:** Simulates FMDV spread across a network of interconnected farms, driven by livestock movement.
 * **Mechanisms:**
-    * Each farm runs an internal herd simulation using a computationally efficient probabilistic state-transition model (`simulate_within_herd_probabilistic_b`) where agents' progression through `Noninfectious`, `Preclinical`, and `Clinical` states is governed by Weibull-distributed durations.
+    * Each farm runs an internal herd simulation using a computationally efficient probabilistic state-transition model (`simulate_net_model`) where agents' progression through `Noninfectious`, `Preclinical`, and `Clinical` states is governed by Weibull-distributed durations.
     * Stochastic animal movements between farms (`simulate_farm_movements`) are based on network topology (Erdős–Rényi, small-world, or geometric with distance-weighting) and configurable movement probabilities/fractions.
     * Infected animals moving to susceptible farms can seed new outbreaks.
     * Optional quarantine logic (`detection_triggers_quarantine`, `detection_delay_hours`) can be applied to restrict movement from farms once clinical signs are detected.
@@ -110,7 +110,7 @@ The primary purpose of `challengeABM` is to:
     ```
     dV/dt = rV(1 - V/K) - cV + ε
     ```
-* **Dose-Response Function (R2R, Herd, implicitly in Between-Farm via `simulate_within_herd_probabilistic_b`):** A Hill-type sigmoid function determines infection probability based on exposure dose.
+* **Dose-Response Function (R2R, Herd, implicitly in Between-Farm via `simulate_net_model`):** A Hill-type sigmoid function determines infection probability based on exposure dose.
     ```
     DoseEff = E_max / (1 + exp[-λ(V_inf/K_inf - θ_adj)])
     ```

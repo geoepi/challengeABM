@@ -223,11 +223,11 @@ transmission by linking multiple farm-level simulations. The function
 global time step (representing, e.g., one hour, though movements may
 occur at larger intervals like `movement_interval`): a. **Within-Farm
 Dynamics Update:** For each farm: i. The internal herd epidemic process
-is simulated using the `simulate_within_herd_probabilistic_b` function.
-This function updates agent states (Noninfectious, Preclinical,
-Clinical) based on probabilistic transitions. Each agent’s onset and
-duration for these states are sampled from Weibull distributions
-(calibrated from `preclin_onset_median`, `preclin_duration_median`,
+is simulated using the `initialize_farm_status_initial` function. This
+function updates agent states (Noninfectious, Preclinical, Clinical)
+based on probabilistic transitions. Each agent’s onset and duration for
+these states are sampled from Weibull distributions (calibrated from
+`preclin_onset_median`, `preclin_duration_median`,
 `clinical_duration_median`, and their CIs). This approach uses
 agent-level state probabilities rather than direct modeling of viral
 titers for computational efficiency. ii. Intra-farm transmission occurs
@@ -247,12 +247,11 @@ and distance-weighted probabilities (for geometric graphs, using
 $weight = \exp(-\lambda \times distance)$). d. **Inter-Farm Seeding:**
 i. If any animals moved to a recipient farm are in an infectious state
 (preclinical or clinical): 1. They may seed a new outbreak on the
-recipient farm. 2. The recipient farm’s simulation is then updated
-(re-simulated by `simulate_within_herd_probabilistic_b`) with these new
-infection seeds (susceptible agents are effectively replaced by the
-incoming infected ones). The `transmission_prob` parameter governs the
-likelihood of successful seeding per infectious animal moved or per
-contact event resulting from movement.
+recipient farm. 2. The recipient farm’s simulation is then updated with
+these new infection seeds (susceptible agents are effectively replaced
+by the incoming infected ones). The `transmission_prob` parameter
+governs the likelihood of successful seeding per infectious animal moved
+or per contact event resulting from movement.
 
 ### 4. Design Concepts
 
@@ -291,7 +290,7 @@ contact event resulting from movement.
     and potentially destination choice.
   - **State Transitions (Between-Farm):** Durations in
     preclinical/clinical states are sampled from Weibull distributions
-    via `simulate_within_herd_probabilistic_b`.
+    via `initialize_farm_status_initial`.
   - The `seed` parameter ensures simulation reproducibility.
 - **Collectives:** Herds on farms are implicit collectives. The farm
   network is a higher-level collective structure.
@@ -316,11 +315,9 @@ contact event resulting from movement.
   - Individual agent parameters (viral dynamics, thresholds, recovery
     times) are drawn from statistical distributions defined by mean and
     SD values.
-  - In the between-farm module, within the
-    `simulate_within_herd_probabilistic_b` function called by
-    `initialize_farm_status`, each agent’s onset and duration of
-    infection states (preclinical, clinical) are sampled from Weibull
-    distributions.
+  - In the between-farm module, within `initialize_farm_status`, each
+    agent’s onset and duration of infection states (preclinical,
+    clinical) are sampled from Weibull distributions.
   - Agents start as `Noninfectious` unless designated as donors.
     `is_donor` status is set.
 - **Module-Specific Initialization:**
@@ -333,9 +330,9 @@ contact event resulting from movement.
       (distances, weights using `lambda`, `shape_gamma`, `scale_gamma`).
     - Each farm node is populated with a herd (`herd_size_range` or
       `total_herd_size`). The function `initialize_farm_status` calls
-      `simulate_within_herd_probabilistic_b` for each farm to set up its
-      initial agent population with their individual (probabilistically
-      determined) disease progression timelines.
+      each farm to set up its initial agent population with their
+      individual (probabilistically determined) disease progression
+      timelines.
     - Initial infections (`num_donors` or `initial_donors`) are seeded
       onto specified farms.
 - **Configuration:** Parameters are read from YAML files. Global
@@ -382,11 +379,10 @@ $\theta_{\text{adj}} = \theta + \frac{1}{\lambda} \log\left(\frac{E_{\max}}{E_{\
 (Parameters: `dose_max_efficiency`, `dose_scaling_factor`,
 `dose_threshold`, `dose_efficiency_at_threshold`).
 
-**3. Probabilistic State Transition
-(`simulate_within_herd_probabilistic_b` in Between-Farm Module)** \*
-**Purpose:** Models agent progression through Noninfectious,
-Preclinical, and Clinical states without continuous viral titer
-simulation for computational tractability in large networks. \*
+**3. Probabilistic State Transition (`simulate_net_model.` in
+Between-Farm Module)** \* **Purpose:** Models agent progression through
+Noninfectious, Preclinical, and Clinical states without continuous viral
+titer simulation for computational tractability in large networks. \*
 **Description:** \* Each agent’s time to onset of preclinical state,
 time from preclinical to clinical state, and duration of infectious
 periods are sampled from Weibull distributions. These distributions are
@@ -418,7 +414,7 @@ Destination farm selected based on network connections and weights
 (distance-dependent for geometric graphs). \* If infectious animals
 move, they can seed infection in the recipient farm (governed by
 `transmission_prob`). The recipient farm’s state is updated by
-re-running `simulate_within_herd_probabilistic_b` with the new seeds.
+re-running `simulate_net_model` with the new seeds.
 
 **6. Quarantine Logic (Between-Farm Module, part of
 `simulate_between_herds`)** \* **Purpose:** Simulates disease control by
