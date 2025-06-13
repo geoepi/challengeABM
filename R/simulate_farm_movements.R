@@ -1,3 +1,12 @@
+#' Move animals between farms
+#'
+#' Simulates scheduled movements of animals along the edges of the farm network.
+#'
+#' @param graph igraph network of farms.
+#' @param farm_status Current farm status list.
+#' @param config Simulation parameter list.
+#' @param time Current time step.
+#' @return List with updated `farm_status` and a data frame of movement events.
 simulate_farm_movements <- function(graph, farm_status, config, time) {
 
   farm_ids <- farm_status$farm_ids

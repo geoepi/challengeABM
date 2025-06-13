@@ -1,3 +1,11 @@
+#' Summarise outbreak metrics across herd trials
+#'
+#' Reads herd level result files and calculates timing of peak infection,
+#' detection and titer information for trials that exceed a minimum incidence.
+#'
+#' @param data_path Directory with herd result CSV files.
+#' @param min_incidence Minimum number of infected animals required to include a trial.
+#' @return A data table of summary statistics for each metric.
 calculate_outbreak_metrics <- function(data_path, min_incidence = 2) {
 
   file_list <- list.files(path = data_path, pattern = "results_.*_herd_clin.csv", full.names = TRUE)

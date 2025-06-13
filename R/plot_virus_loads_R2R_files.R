@@ -1,7 +1,20 @@
+#' Plot virus loads from result files
+#'
+#' Reads multiple room-to-room result files and plots all animal virus curves
+#' with optional scaling and median calculation.
+#'
+#' @param data_path Directory containing CSV outputs.
+#' @param sample_files_proportion Proportion of files to sample.
+#' @param sample_trials Optional number of trials to sample.
+#' @param scale_serum Optional maximum for serum axis.
+#' @param scale_nasal Optional maximum for nasal axis.
+#' @param calc_median Logical, add median trend lines.
+#' @param line_alpha Alpha transparency for individual lines.
+#' @return A ggplot object.
 plot_virus_loads_R2R_files <- function(data_path, sample_files_proportion = 1, sample_trials = NULL,
                                        scale_serum = NULL, scale_nasal = NULL,
                                        calc_median = FALSE, line_alpha = 0.3) {
-  library(forcats)
+  # use functions from forcats via explicit namespaces
 
   file_list <- list.files(
     path = data_path,
@@ -67,7 +80,7 @@ plot_virus_loads_R2R_files <- function(data_path, sample_files_proportion = 1, s
     mutate(Animal = as.factor(Animal))
 
   long_data <- long_data %>%
-    mutate(Animal = fct_shuffle(Animal)) %>%
+    mutate(Animal = forcats::fct_shuffle(Animal)) %>%
     arrange(Animal)
 
   # calculate medians if calc_median is TRUE

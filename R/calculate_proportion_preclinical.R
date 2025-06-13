@@ -1,5 +1,12 @@
-# this function is intended for room-to-room simulation only. The dividend in the reported ratio is study duration, not total infectious period.
-
+#' Proportion of shedding occurring before clinical signs
+#'
+#' Calculates the ratio of virus shed prior to clinical onset for room-to-room
+#' simulations using bootstrap sampling.
+#'
+#' @param data_path Directory with result files.
+#' @param n_iterations Number of bootstrap iterations.
+#' @param seed Random seed for reproducibility.
+#' @return A data frame with mean and confidence intervals for theta.
 calculate_proportion_preclinical <- function(data_path, n_iterations = 100, seed = 123) {
 
   set.seed(seed) # for bootstrapping

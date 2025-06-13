@@ -1,3 +1,11 @@
+#' Plot dose versus incubation time
+#'
+#' Visualises the relationship between inoculation dose and resulting incubation
+#' time using hex binning and a GAM smoother.
+#'
+#' @param dose_plt Data frame created by `get_dose_table()`.
+#' @param legend_title Title for the legend.
+#' @return A ggplot object.
 plot_dose <- function(dose_plt, legend_title = "Animals") {
 
   ggplot(dose_plt, aes(x = dose, y = incub / 24)) +

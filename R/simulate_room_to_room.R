@@ -1,3 +1,11 @@
+#' Simulate room-to-room transmission experiment
+#'
+#' Runs the within-room model for multiple rooms with donor movement between
+#' rooms according to the configuration parameters.
+#'
+#' @param config_file YAML configuration file.
+#' @param ... Optional overrides for configuration values.
+#' @return List containing agent trajectories and a final results table.
 simulate_room_to_room <- function(config_file = NULL, ...) {
 
   # read configuration file

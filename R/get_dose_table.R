@@ -1,3 +1,11 @@
+#' Build dose vs incubation table
+#'
+#' Joins incubation periods with agent metadata to facilitate dose response
+#' plotting.
+#'
+#' @param path Directory of simulation results.
+#' @param periods_melted Output from `calculate_phase_durations()`.
+#' @return Data frame with dose and incubation time for each animal.
 get_dose_table <- function(path, periods_melted) {
 
   # filter and summarize incubation period

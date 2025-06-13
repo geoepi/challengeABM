@@ -1,3 +1,15 @@
+#' Initialise room-to-room agents
+#'
+#' Creates donor and contact agents for a room-to-room experiment with
+#' random thresholds and parameters.
+#'
+#' @param num_infected Number of initially infected donors.
+#' @param num_non_infected_per_room Number of naive contacts per room.
+#' @param num_rooms Total rooms in the experiment.
+#' @param nasal_threshold_mean,serum_threshold_mean Means for detection thresholds.
+#' @param nasal_threshold_sd,serum_threshold_sd Standard deviations for thresholds.
+#' @param infect_threshold_mean,infect_threshold_sd Parameters for infectious threshold.
+#' @return Data frame of initialized agents.
 initialize_abm_agents <- function(num_infected, num_non_infected_per_room, num_rooms,
                                   nasal_threshold_mean, serum_threshold_mean, nasal_threshold_sd,
                                   serum_threshold_sd, infect_threshold_mean, infect_threshold_sd) {

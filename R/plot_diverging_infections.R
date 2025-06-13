@@ -1,3 +1,12 @@
+#' Plot diverging infection counts
+#'
+#' Creates a bar plot showing differences between clinical and preclinical
+#' scenarios until a specified time point.
+#'
+#' @param clinical_scenario Data from `collate_herd_incidence_dt()`.
+#' @param preclinical_scenario Data from the alternative scenario.
+#' @param peak_time Maximum time to display (hours).
+#' @return A ggplot object.
 plot_diverging_infections <- function(clinical_scenario, preclinical_scenario, peak_time = 168) {
 
   clinical_scenario$scenario <- "Clinical"

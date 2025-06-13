@@ -1,3 +1,12 @@
+#' Update virus dynamics for an agent
+#'
+#' Applies logistic growth with clearance and noise to update viral loads for an
+#' infected agent.
+#'
+#' @param agent Data frame row for an individual animal.
+#' @param current_time Current simulation time.
+#' @param delta_t Time step in hours.
+#' @return Updated agent row.
 update_agent_virus_dynamics <- function(agent, current_time, delta_t) {
 
   infection_time <- agent$infection_time

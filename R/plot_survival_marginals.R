@@ -1,3 +1,13 @@
+#' Plot survival curve marginals
+#'
+#' Displays median and credible intervals for survival probabilities estimated
+#' by `compute_survival_marginals()`.
+#'
+#' @param samples Data frame of survival quantiles.
+#' @param x_max Maximum x axis in days.
+#' @param xlabel Label for x axis.
+#' @param ylabel Label for y axis.
+#' @return A ggplot object.
 plot_survival_marginals <- function(samples, x_max = 14, xlabel = "Incubation Phase Duration",
                                     ylabel = "Probability") {
 

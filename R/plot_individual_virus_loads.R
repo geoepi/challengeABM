@@ -1,3 +1,11 @@
+#' Plot virus loads for random animals
+#'
+#' Selects a sample of animals from a simulation result and plots their nasal
+#' and serum virus trajectories.
+#'
+#' @param model_result Simulation result list.
+#' @param sample_n Number of animals to sample.
+#' @return A ggplot object.
 plot_individual_virus_loads <- function(model_result, sample_n = NULL) {
 
     agent_ids <- model_result$final_results %>%

@@ -1,3 +1,10 @@
+#' Generate state transition probabilities
+#'
+#' Uses Weibull distributions specified in `config` to build a table of hourly
+#' probabilities for noninfectious, preclinical and clinical states.
+#'
+#' @param config Named list of parameter values.
+#' @return Data frame of state probabilities over time.
 generate_state_probability_table <- function(config) {
 
   # maximum time span in days

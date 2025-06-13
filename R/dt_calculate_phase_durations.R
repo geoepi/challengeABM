@@ -1,5 +1,10 @@
-# data.table version, runs a little faster on HPC
-
+#' Calculate phase durations with data.table
+#'
+#' Faster implementation of `calculate_phase_durations()` using data.table
+#' operations.
+#'
+#' @param data_path Directory containing result CSV files.
+#' @return A long `data.table` of phase durations for each animal.
 dt_calculate_phase_durations <- function(data_path) {
 
   file_list <- list.files(

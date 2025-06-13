@@ -1,3 +1,10 @@
+#' Generate a random farm contact network
+#'
+#' Creates an igraph object with weighted edges representing contact likelihood
+#' between farms and a companion data frame of node attributes.
+#'
+#' @param config List of network settings including type, size and random seed.
+#' @return A list with `graph` and `farm_df` elements.
 generate_farm_network <- function(config) {
 
   set.seed(config$seed)

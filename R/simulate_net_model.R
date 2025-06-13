@@ -1,3 +1,11 @@
+#' Simulate disease spread on a farm network
+#'
+#' Wrapper around the network simulation defined in
+#' `initialize_farm_status_initial.R`.
+#'
+#' @param net Network object from `generate_farm_network()`.
+#' @param config Configuration list.
+#' @return List with farm status and movement logs.
 simulate_net_model <- function(net, config) {
   graph   <- net$graph
   farm_df <- net$farm_df

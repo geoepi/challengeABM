@@ -1,3 +1,10 @@
+#' Proportion of trials with no infections by room
+#'
+#' For room-to-room simulations compute the percentage of trials in which no
+#' infections occurred in specified rooms.
+#'
+#' @param data_path Directory of result CSV files.
+#' @return A data frame of rooms and the percentage with no infections.
 calculate_no_infection_percent <- function(data_path) {
 
   file_list <- list.files(

@@ -1,3 +1,11 @@
+#' Plot transmission network from agent data
+#'
+#' Reads an agent CSV file and visualises the directed transmission network.
+#'
+#' @param agent_file_path Path to the agent results CSV.
+#' @param layout_type Either "graphopt" or "tree" for layout algorithm.
+#' @param seed Optional random seed for layout reproducibility.
+#' @return Invisibly returns the igraph object plotted.
 plot_transmission_network <- function(agent_file_path, layout_type = "graphopt", seed = NULL) {
 
   agent_data <- read.csv(agent_file_path)

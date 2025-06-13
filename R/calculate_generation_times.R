@@ -1,3 +1,10 @@
+#' Calculate generation time statistics
+#'
+#' Reads agent level data and calculates the time between infection events for
+#' each transmission pair.
+#'
+#' @param data_path Directory of `agent_*_herd_clin.csv` files.
+#' @return A `data.table` summarising median and quartile generation times.
 calculate_generation_times <- function(data_path) {
 
   file_list <- list.files(

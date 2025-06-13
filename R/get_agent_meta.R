@@ -1,3 +1,11 @@
+#' Retrieve agent metadata from result files
+#'
+#' Reads selected columns from all agent result files in a directory and
+#' combines them into one table.
+#'
+#' @param data_path Directory containing agent result CSVs.
+#' @param myVars Character vector of columns to keep.
+#' @return A combined data frame of selected metadata.
 get_agent_meta <- function(data_path, myVars = c("id", "trial", "dose")) {
 
   file_list <- list.files(

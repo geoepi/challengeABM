@@ -1,3 +1,13 @@
+#' Demonstrate dose response curves
+#'
+#' Plots Hill-type dose efficiency curves for a range of parameter values.
+#'
+#' @param virus_ratio Vector of ratios to plot.
+#' @param dose_threshold Midpoint of the curve.
+#' @param dose_efficiency_at_threshold Efficiency at the threshold.
+#' @param dose_max_efficiency Vector of maximum efficiencies.
+#' @param dose_scaling_factors Vector of scaling factors.
+#' @return A ggplot object.
 plot_hill_demo <- function(virus_ratio = seq(0, 1, length.out = 100),
                            dose_threshold = 0.5,
                            dose_efficiency_at_threshold = 0.5,

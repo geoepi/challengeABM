@@ -1,3 +1,10 @@
+#' Plot virus loads from a room-to-room simulation
+#'
+#' Faceted plot of nasal and serum viral trajectories grouped by experimental
+#' room.
+#'
+#' @param model_result Result list returned by `simulate_room_to_room()`.
+#' @return A ggplot object.
 plot_virus_loads_R2R <- function(model_result) {
 
     agent_trajectories <- model_result$final_results

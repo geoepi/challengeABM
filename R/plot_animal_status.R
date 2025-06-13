@@ -1,3 +1,10 @@
+#' Plot individual infection status timelines
+#'
+#' Creates a Gantt style plot showing the infection status of each animal over
+#' time from a single simulation result.
+#'
+#' @param model_result List returned by a simulation function.
+#' @return A ggplot object.
 plot_animal_status <- function(model_result) {
   status_data <- model_result$final_results %>%
     group_by(id) %>%

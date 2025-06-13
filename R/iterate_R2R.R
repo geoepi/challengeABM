@@ -1,3 +1,14 @@
+#' Run multiple room-to-room simulations
+#'
+#' Wrapper that repeatedly calls `simulate_room_to_room()` and optionally writes
+#' intermediate results to disk.
+#'
+#' @param simulate_room_to_room Function performing a single simulation.
+#' @param config_file Path to a YAML configuration file.
+#' @param num_iterations Number of iterations to run.
+#' @param write_interval Interval at which results are written to disk.
+#' @param output_directory Directory for output files.
+#' @return Combined agents and final results if `write_interval` is `NULL`.
 iterate_R2R <- function(simulate_room_to_room, config_file = NULL, num_iterations, write_interval = NULL, output_directory = getwd()) {
   # empty data frames
   agents_combined <- data.frame()

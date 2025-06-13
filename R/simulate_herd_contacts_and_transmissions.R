@@ -1,3 +1,25 @@
+#' Simulate contacts and transmission events within a herd
+#'
+#' For each infectious animal, contacts are generated and susceptible animals may
+#' become infected according to a dose response.
+#'
+#' @param agents Data frame of agents.
+#' @param current_time Current time step.
+#' @param contact_rate Mean number of contacts per animal per time step.
+#' @param delta_t Simulation time step in hours.
+#' @param growth_rate_nasal_mean,growth_rate_nasal_sd Growth rate parameters for nasal virus.
+#' @param growth_rate_serum_mean,growth_rate_serum_sd Growth rate parameters for serum virus.
+#' @param clearance_rate_mean,clearance_rate_sd Clearance parameters.
+#' @param stochastic_noise_mean,stochastic_noise_sd Noise parameters.
+#' @param exponential_factor_mean,exponential_factor_sd Exponential decay parameters.
+#' @param inflection_point_mean,inflection_point_sd Inflection point parameters.
+#' @param growth_cease_mean,growth_cease_sd Growth cessation parameters.
+#' @param nasal_ccap_mean,nasal_ccap_sd Nasal carrying capacity parameters.
+#' @param serum_ccap_mean,serum_ccap_sd Serum carrying capacity parameters.
+#' @param dose_scaling_factor,dose_max_efficiency Dose response curve parameters.
+#' @param dose_efficiency_at_threshold,dose_threshold Dose response threshold parameters.
+#' @param preclin_infect Logical: infectious before clinical signs?
+#' @return Updated agent data frame.
 simulate_herd_contacts_and_transmissions <- function(
     agents, current_time, contact_rate, delta_t,
     growth_rate_nasal_mean, growth_rate_nasal_sd,

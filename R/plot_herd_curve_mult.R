@@ -1,3 +1,10 @@
+#' Plot epidemic curves with uncertainty bands
+#'
+#' Takes summary output from `collate_herd_incidence_dt()` and plots median and
+#' quantile ribbons for infected and recovered counts.
+#'
+#' @param infections_trend Data frame of summary statistics.
+#' @return A ggplot object.
 plot_herd_curve_mult <- function(infections_trend) {
 
   infections_trend_long <- infections_trend %>%

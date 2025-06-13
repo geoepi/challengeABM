@@ -1,3 +1,24 @@
+#' Attempt transmission within a room
+#'
+#' Checks infectious agents in a room and infects susceptible contacts based on
+#' their nasal virus load and dose response parameters.
+#'
+#' @param agents Data frame of all agents.
+#' @param room Room identifier being processed.
+#' @param current_time Current simulation time.
+#' @param delta_t Time step in hours.
+#' @param growth_rate_nasal_mean,growth_rate_nasal_sd Mean and SD for nasal growth rate.
+#' @param growth_rate_serum_mean,growth_rate_serum_sd Mean and SD for serum growth rate.
+#' @param clearance_rate_mean,clearance_rate_sd Parameters for viral clearance.
+#' @param stochastic_noise_mean,stochastic_noise_sd Parameters for process noise.
+#' @param exponential_factor_mean,exponential_factor_sd Parameters for waning growth.
+#' @param inflection_point_mean,inflection_point_sd Parameters for inflection time.
+#' @param growth_cease_mean,growth_cease_sd Parameters for growth cessation.
+#' @param nasal_ccap_mean,nasal_ccap_sd Mean and SD of nasal carrying capacity.
+#' @param serum_ccap_mean,serum_ccap_sd Mean and SD of serum carrying capacity.
+#' @param dose_scaling_factor,dose_max_efficiency Parameters of dose response curve.
+#' @param dose_efficiency_at_threshold,dose_threshold Parameters controlling dose response threshold.
+#' @return Updated agent data frame.
 check_and_transmit_infection <- function(
     agents, room, current_time,
     delta_t,

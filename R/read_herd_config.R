@@ -1,3 +1,11 @@
+#' Read within-herd configuration
+#'
+#' Reads a YAML configuration file for within herd simulations. Additional
+#' named arguments override values in the file.
+#'
+#' @param config_file Path to config YAML.
+#' @param ... Named overrides.
+#' @return Configuration list.
 read_herd_config <- function(config_file = NULL, ...) {
 
   if (!is.null(config_file) && is.character(config_file)) {

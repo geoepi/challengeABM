@@ -1,3 +1,12 @@
+#' Aggregate simulation files
+#'
+#' Read a selection of simulation output CSV files and combine them into a
+#' single data frame.
+#'
+#' @param data_path Directory containing result files.
+#' @param sim_type Either `"R2R"` or `"herd"` to choose file patterns.
+#' @param sample_percentage Percentage of files to randomly sample.
+#' @return A combined `data.frame` of all sampled records.
 aggregate_files <- function(data_path, sim_type = "R2R", sample_percentage = 100) {
 
   file_list <- list.files(

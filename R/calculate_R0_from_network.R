@@ -1,3 +1,10 @@
+#' Estimate basic reproduction number from network outputs
+#'
+#' Uses agent level output files to compute the mean out degree of donor
+#' infections, yielding an estimate of R0.
+#'
+#' @param data_path Directory containing `agent_*_herd_clin.csv` files.
+#' @return A data frame summarising median and quantile R0 estimates.
 calculate_R0_from_network <- function(data_path) {
 
   file_list <- list.files(

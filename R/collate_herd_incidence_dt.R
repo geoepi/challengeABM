@@ -1,5 +1,12 @@
+#' Fast collation of herd incidence using data.table
+#'
+#' Equivalent to `collate_herd_incidence()` but implemented with data.table for
+#' speed on large simulations.
+#'
+#' @param data_path Directory of herd CSV files.
+#' @param min_incidence Trials with fewer infections than this are discarded.
+#' @return A data.table summarising median counts over time.
 collate_herd_incidence_dt <- function(data_path, min_incidence = 2) {
-  # uses data.table
 
   file_list <- list.files(
     path = data_path,

@@ -1,3 +1,11 @@
+#' Summarise infection phase durations
+#'
+#' Takes the long format data from `calculate_phase_durations()` and produces
+#' summary statistics for each group and phase.
+#'
+#' @param melted_data Output of `calculate_phase_durations()`.
+#' @param units Unit of time to report, "hours" or "days".
+#' @return A data frame of summary statistics.
 calculate_phase_stats <- function(melted_data, units = "hours") {
 
   if (units == "days") {

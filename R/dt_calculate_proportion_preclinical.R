@@ -1,4 +1,11 @@
-# data.table version
+#' Proportion preclinical shedding with data.table
+#'
+#' data.table implementation of `calculate_proportion_preclinical()`.
+#'
+#' @param data_path Directory containing CSV results.
+#' @param n_iterations Number of bootstrap replicates.
+#' @param seed Random seed for reproducibility.
+#' @return Data table with mean and confidence intervals for theta.
 dt_calculate_proportion_preclinical <- function(data_path, n_iterations = 100, seed = 123) {
 
   set.seed(seed)

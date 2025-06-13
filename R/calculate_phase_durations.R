@@ -1,3 +1,11 @@
+#' Extract infection phase durations for animals
+#'
+#' Reads simulation output and calculates latent, subclinical and incubation
+#' periods for each animal.
+#'
+#' @param data_path Folder with simulation CSV files.
+#' @param sim_type Either `"R2R"` or `"herd"` indicating file naming.
+#' @return A tibble with one row per animal and period.
 calculate_phase_durations <- function(data_path, sim_type = "R2R") {
 
   file_list <- list.files(

@@ -1,3 +1,10 @@
+#' Plot infection and recovery counts
+#'
+#' Creates a simple line plot showing numbers infected and recovered over time
+#' for a single simulation.
+#'
+#' @param model_result Result list from a simulation.
+#' @return A ggplot object.
 plot_herd_curve <- function(model_result) {
 
     infections_trend <- model_result$final_results %>%

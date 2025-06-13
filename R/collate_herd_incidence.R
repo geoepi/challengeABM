@@ -1,4 +1,11 @@
-# may be slow for large simulations, see collate_herd_incidence_dt
+#' Collate incidence curves across herd trials
+#'
+#' Reads herd level output files and calculates median incidence and recovery
+#' trajectories. For large datasets the data.table version may be faster.
+#'
+#' @param data_path Folder containing `results_*_herd_clin.csv` files.
+#' @param min_incidence Minimum number of infected animals to include a trial.
+#' @return A data frame with time series of median infected and recovered counts.
 collate_herd_incidence <- function(data_path, min_incidence = 2) {
 
   file_list <- list.files(

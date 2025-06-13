@@ -1,3 +1,11 @@
+#' Compare epidemic curves between scenarios
+#'
+#' Plots median infected counts for clinical and preclinical scenarios on the
+#' same graph.
+#'
+#' @param clinical_scenario Data frame from `collate_herd_incidence_dt()`.
+#' @param preclinical_scenario Data frame from another scenario.
+#' @return A ggplot object.
 plot_comparison_epicurves <- function(clinical_scenario, preclinical_scenario) {
 
   clinical_scenario$scenario <- "Clinical"

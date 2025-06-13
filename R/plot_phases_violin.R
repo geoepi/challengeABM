@@ -1,3 +1,12 @@
+#' Visualise phase durations by group
+#'
+#' Creates violin plots of latent, subclinical and incubation periods for each
+#' experimental group.
+#'
+#' @param data Data frame from `calculate_phase_durations()`.
+#' @param y_max Maximum y axis in days.
+#' @param colors Fill colours for the phases.
+#' @return A ggplot object.
 plot_phases_violin <- function(data, y_max = 9, colors = c('steelblue', 'darkorange', 'darkgreen')) {
 
   data$group = ifelse(data$group == "Donor", "Donors", data$group)

@@ -1,4 +1,10 @@
-# data.table version
+#' Summarise phase durations with data.table
+#'
+#' data.table implementation of `calculate_phase_stats()` for faster execution.
+#'
+#' @param melted_data Long table of durations.
+#' @param units Units to report, "hours" or "days".
+#' @return A data.table with summary statistics.
 dt_calculate_phase_stats <- function(melted_data, units = "hours") {
 
   data_copy <- copy(melted_data)

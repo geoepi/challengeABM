@@ -1,3 +1,25 @@
+#' Infect an individual agent
+#'
+#' Sets initial infection parameters and virus dynamics for a given agent. When
+#' not an initial infection the dose efficiency override is applied.
+#'
+#' @param agent_id Index of the agent to infect.
+#' @param agents Data frame of all agents.
+#' @param current_time Current simulation time.
+#' @param initial_infection Logical indicating donor introduction.
+#' @param delta_t Simulation time step.
+#' @param dose_eff_override Override value for dose efficiency when infected by contact.
+#' @param growth_rate_nasal_mean,growth_rate_nasal_sd Mean and SD of nasal growth rate.
+#' @param growth_rate_serum_mean,growth_rate_serum_sd Mean and SD of serum growth rate.
+#' @param clearance_rate_mean,clearance_rate_sd Parameters for clearance rate.
+#' @param stochastic_noise_mean,stochastic_noise_sd Parameters controlling stochastic noise.
+#' @param exponential_factor_mean,exponential_factor_sd Parameters for waning growth exponent.
+#' @param inflection_point_mean,inflection_point_sd Parameters for growth inflection point.
+#' @param growth_cease_mean,growth_cease_sd Mean and SD for growth cessation time.
+#' @param nasal_ccap_mean,nasal_ccap_sd Mean and SD of nasal carrying capacity.
+#' @param serum_ccap_mean,serum_ccap_sd Mean and SD of serum carrying capacity.
+#' @param infector_id ID of the infecting agent if applicable.
+#' @return Updated agent data frame.
 infect_agent <- function(agent_id, agents, current_time,
                          initial_infection = FALSE,
                          delta_t, dose_eff_override = NULL,

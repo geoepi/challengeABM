@@ -1,3 +1,10 @@
+#' Calculate proportion of shedding pre clinical
+#'
+#' Computes theta – the proportion of viral shedding that occurs before
+#' clinical symptoms – from herd simulation outputs.
+#'
+#' @param data_path Directory of herd result CSV files.
+#' @return A long data frame of summary statistics for theta.
 calculate_theta <- function(data_path) {
 
   file_list <- list.files(

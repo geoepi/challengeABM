@@ -1,3 +1,11 @@
+#' Simulate within-herd transmission
+#'
+#' Runs the stochastic within herd model for a single herd based on a YAML
+#' configuration.
+#'
+#' @param config_file Path to configuration file.
+#' @param ... Override values for the configuration list.
+#' @return List of agent metadata and final results over time.
 simulate_within_herd <- function(config_file = NULL, ...) {
 
   # read configuration file

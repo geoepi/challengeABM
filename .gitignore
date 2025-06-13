@@ -51,4 +51,9 @@ secrets.yaml
 # local data
 /local
 
+# renv
+renv/library/
+renv/python/
+renv/staging/
+
 /.quarto/

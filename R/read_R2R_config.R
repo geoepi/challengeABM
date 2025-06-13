@@ -1,3 +1,11 @@
+#' Read room-to-room configuration
+#'
+#' Loads a YAML configuration file and allows overriding parameters via
+#' additional arguments.
+#'
+#' @param config_file Path to a configuration YAML file.
+#' @param ... Named values to override in the configuration.
+#' @return A list of configuration parameters.
 read_R2R_config <- function(config_file = NULL, ...) {
 
   if (!is.null(config_file) && is.character(config_file)) {
