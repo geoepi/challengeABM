@@ -17,7 +17,7 @@ remotes::install_github("geoepi/challengeABM")
   
 ### [Within-Herd Overview](https://github.com/geoepi/challengeABM/blob/main/articles/within_herd_transmission.md) 
 
-### [Between-Farm Overview](https://github.com/geoepi/challengeABM/blob/main/articles/within_herd_transmission.md) 
+### [Between-Farm Overview](https://github.com/geoepi/challengeABM/blob/main/articles/between_farms.md) 
   
   
 ## Shiny  
