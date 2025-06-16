@@ -3,21 +3,26 @@ An Agent Based Model (ABM) simulating within-host virus dynamics, within-herd ho
 
 This work is in draft form, has not been verified, and is subject to change. 
 
-## Overview, Design concepts, Details (ODD)
-A [detailed ODD available HERE](https://github.com/geoepi/challengeABM/blob/main/ODD_Decription.md) 
-   
-### [Room-to-Room Overview](https://github.com/geoepi/challengeABM/blob/main/articles/room_to_room_transmission.md)  
-  
-### [Within-Herd Overview](https://github.com/geoepi/challengeABM/blob/main/articles/within_herd_transmission.md)  
-   
-### [Simplified Room-to-Rooom ShinyApp](https://geoepi.shinyapps.io/fmdv-preclinical/)  
-  
-
 ## Install: 
 ```
 library(remotes)
 remotes::install_github("geoepi/challengeABM")
 ```
+
+## Overview, Design concepts, Details (ODD)
+### [Detailed Agent-Based Model ODD](https://github.com/geoepi/challengeABM/blob/main/ODD_Decription.md)   
+   
+## Vignettes  
+### [Room-to-Room Overview](https://github.com/geoepi/challengeABM/blob/main/articles/room_to_room_transmission.md)  
+  
+### [Within-Herd Overview](https://github.com/geoepi/challengeABM/blob/main/articles/within_herd_transmission.md) 
+
+### [Between-Farm Overview](https://github.com/geoepi/challengeABM/blob/main/articles/within_herd_transmission.md) 
+  
+  
+## Shiny  
+### [Simplified Room-to-Rooom ShinyApp](https://geoepi.shinyapps.io/fmdv-preclinical/)  
+  
 ---
 ---
 

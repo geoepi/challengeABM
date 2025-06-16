@@ -41,7 +41,7 @@ set.seed(seed_val)
   
 Run the simulation based using a configuration file with needed parameters..      
 ```{r}
-model_result <- simulate_within_herd(here("config/default_herd_config_e.yaml"))
+model_result <- simulate_within_herd(here("config/base_config_fmdv.yaml"))
 ```
 
 ## Within-Host Dynamics  

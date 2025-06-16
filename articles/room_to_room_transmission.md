@@ -59,13 +59,13 @@ First, set random seed for reproducible runs.
 <summary>Hide code</summary>
 
 ``` r
-seed_val <- round(runif(1, 100, 300),0)
+seed_val <- round(runif(1, 1000, 3000),0)
 seed_val 
 ```
 
 </details>
 
-    [1] 139
+    [1] 1188
 
 <details open>
 <summary>Hide code</summary>
@@ -83,7 +83,7 @@ parameters..
 <summary>Hide code</summary>
 
 ``` r
-model_result <- simulate_room_to_room(here("config/default_R2R_config.yaml"))
+model_result <- simulate_room_to_room(here("config/base_config_fmdv.yaml"))
 ```
 
 </details>

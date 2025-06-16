@@ -56,7 +56,7 @@ seed_val
 
 </details>
 
-    [1] 225
+    [1] 245
 
 <details open>
 <summary>Hide code</summary>
@@ -74,7 +74,7 @@ parameters..
 <summary>Hide code</summary>
 
 ``` r
-model_result <- simulate_within_herd(here("config/default_herd_config.yaml"))
+model_result <- simulate_within_herd(here("config/base_config_fmdv.yaml"))
 ```
 
 </details>
