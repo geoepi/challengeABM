@@ -19,16 +19,28 @@ The status of individual cattle virus loads, clinical presentation, and other fa
      
 Virus and cattle parameters may be specified in configuration files to simulate changes to infectivity and virulence.  
    
-```{r, warning=FALSE, message=FALSE, echo=FALSE}
+```{r warning=FALSE, message=FALSE, echo=FALSE}
 library(here)
 library(tidyverse)
 options(dplyr.summarise.inform = FALSE)
 library(pals)
+library(osfr) # Open Science Framework tools
 ```
 
 ## Load challengeABM
 ```{r}
 library(challengeABM)
+```
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+# authentication to save demo files: not required to run this script, may be deleted/skipped
+authentications <- yaml::read_yaml(here("local", "secrets.yaml"))
+
+# authenticate to OSF for write privileges
+osf_auth(authentications$osf_token)
+
+# project location
+osf_project_demo <- osf_retrieve_node("https://osf.io/qf2wr/")
 ```
 
 ## Run the simulation 
@@ -40,9 +52,35 @@ set.seed(seed_val)
 ```
   
 Run the simulation based using a configuration file with needed parameters..      
-```{r}
-model_result <- simulate_within_herd(here("config/base_config_fmdv.yaml"))
+```{r eval=FALSE}
+model_result <- simulate_within_herd(here("config/base_config_fmdv.yaml"),
+                                     num_donors = 2,
+                                     preclin_infect = TRUE,
+                                     contact_rate = 0.25,
+                                     seed = seed_val)
+
+saveRDS(model_result, here("local/demo/model_result_herd_2025-06-13.rds"))
 ```
+
+```{r message=FALSE, warning=FALSE, eval=FALSE, echo=FALSE}
+# Save to copy to OSF for public access
+osf_upload(osf_project_demo, path = here("local/demo/model_result_herd_2025-06-13.rds"))
+```
+
+Download saved copy from OSF
+```{r}
+osf_id <- osf_project_demo %>%
+  osf_ls_files() %>%
+  filter(name == "model_result_herd_2025-06-13.rds") # file to download
+
+osf_download(osf_id,
+             path = here("local/temp"), # where to save
+             conflicts = "overwrite")
+
+# read save file to environment
+model_result <- readRDS(here("local/temp/model_result_herd_2025-06-13.rds"))
+```
+
 
 ## Within-Host Dynamics  
 Randomly select 21 animals.

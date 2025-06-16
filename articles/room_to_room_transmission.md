@@ -65,7 +65,7 @@ seed_val
 
 </details>
 
-    [1] 1188
+    [1] 1817
 
 <details open>
 <summary>Hide code</summary>
@@ -83,7 +83,9 @@ parameters..
 <summary>Hide code</summary>
 
 ``` r
-model_result <- simulate_room_to_room(here("config/base_config_fmdv.yaml"))
+model_result <- simulate_room_to_room(here("config/base_config_fmdv.yaml"), # default parameters
+                                      num_infected = 2, # modify default to ensure 2 donors (like animal experiment)
+                                      num_hours = 360) # modify default to only run 360 time steps (hours)
 ```
 
 </details>

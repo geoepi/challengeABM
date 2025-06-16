@@ -56,7 +56,7 @@ seed_val
 
 </details>
 
-    [1] 245
+    [1] 175
 
 <details open>
 <summary>Hide code</summary>
@@ -74,7 +74,45 @@ parameters..
 <summary>Hide code</summary>
 
 ``` r
-model_result <- simulate_within_herd(here("config/base_config_fmdv.yaml"))
+model_result <- simulate_within_herd(here("config/base_config_fmdv.yaml"),
+                                     num_donors = 2,
+                                     preclin_infect = TRUE,
+                                     contact_rate = 0.25,
+                                     seed = seed_val)
+
+saveRDS(model_result, here("local/demo/model_result_herd_2025-06-13.rds"))
+```
+
+</details>
+
+Download saved copy from OSF
+
+<details open>
+<summary>Hide code</summary>
+
+``` r
+osf_id <- osf_project_demo %>%
+  osf_ls_files() %>%
+  filter(name == "model_result_herd_2025-06-13.rds") # file to download
+
+osf_download(osf_id,
+             path = here("local/temp"), # where to save
+             conflicts = "overwrite")
+```
+
+</details>
+
+    # A tibble: 1 × 4
+      name                             id                    local_path meta        
+      <chr>                            <chr>                 <chr>      <list>      
+    1 model_result_herd_2025-06-13.rds 684cc2c7559e9edbf0cc… D:/Github… <named list>
+
+<details open>
+<summary>Hide code</summary>
+
+``` r
+# read save file to environment
+model_result <- readRDS(here("local/temp/model_result_herd_2025-06-13.rds"))
 ```
 
 </details>
@@ -92,7 +130,7 @@ plot_individual_virus_loads(model_result, sample_n = 21)
 
 </details>
 
-![](within_herd_transmission_files/figure-commonmark/unnamed-chunk-5-1.png)
+![](within_herd_transmission_files/figure-commonmark/unnamed-chunk-8-1.png)
 
 ## Herd Outbreak Curve
 
@@ -107,4 +145,4 @@ plot_herd_curve(model_result)
 
 </details>
 
-![](within_herd_transmission_files/figure-commonmark/unnamed-chunk-6-1.png)
+![](within_herd_transmission_files/figure-commonmark/unnamed-chunk-9-1.png)

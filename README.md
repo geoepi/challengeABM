@@ -38,18 +38,7 @@ remotes::install_github("geoepi/challengeABM")
 * [Technical Details](#technical-details)
     * [Core Mechanisms](#core-mechanisms)
     * [Parameters](#parameters)
-* [System Requirements](#system-requirements)
-* [Installation](#installation)
-* [Getting Started](#getting-started)
-    * [Running a Simulation](#running-a-simulation)
-    * [Configuration Files](#configuration-files)
-    * [Output Data](#output-data)
-* [Model Documentation (ODD Protocol)](#model-documentation-odd-protocol)
 * [Directory Structure](#directory-structure)
-* [Contributing](#contributing)
-* [License](#license)
-* [Citation](#citation)
-* [Contact](#contact)
 
 ---
 
@@ -110,16 +99,14 @@ The primary purpose of `challengeABM` is to:
 ## Technical Details
 
 ### Core Mechanisms
+See, the [Agent-Based Model Overview, Design concepts, Details](https://github.com/geoepi/challengeABM/blob/main/ODD_Decription.md)
 
-* **Within-Host Viral Dynamics (R2R, Herd):** Modeled using a logistic growth equation:
-    ```
-    dV/dt = rV(1 - V/K) - cV + ε
-    ```
+* **Within-Host Viral Dynamics (R2R, Herd):** Modeled using a logistic growth equation:  
+  
 * **Dose-Response Function (R2R, Herd, implicitly in Between-Farm via `simulate_net_model`):** A Hill-type sigmoid function determines infection probability based on exposure dose.
-    ```
-    DoseEff = E_max / (1 + exp[-λ(V_inf/K_inf - θ_adj)])
-    ```
-* **Probabilistic State Transitions (Between-Farm):** Agents transition through `Noninfectious`, `Preclinical`, and `Clinical` states with durations sampled from Weibull distributions.
+  
+* **Probabilistic State Transitions (Between-Farm):** Agents transition through `Noninfectious`, `Preclinical`, and `Clinical` states with durations sampled from Weibull distributions.  
+  
 * **Network Generation (Between-Farm):** Uses standard graph theory algorithms for `erdos`, `smallworld`, or `geometric` networks. Movement probability in geometric networks can decay exponentially with distance: `exp(-lambda * distance)`.
 
 
@@ -135,4 +122,29 @@ All model parameters are defined in YAML configuration files (see `config/` dire
 * Probabilistic progression parameters for between-farm module (median onset/duration times for preclinical/clinical states and their CIs)
 * Between-herd network parameters (number of farms, graph type, distance decay factors)
 * Between-herd movement and control parameters (movement probability/interval/fraction, inter-farm transmission probability, detection delay, quarantine triggers)
-* Random seed for reproducibility
+* Random seed for reproducibility  
+  
+## Repo Contents  
+```
+challengeABM/
+├── DESCRIPTION                # Package metadata
+├── NAMESPACE                  # Export/import definitions
+├── README.md                  # Package overview
+├── R/                         # .R functions
+│   ├── generate_network.R
+│   ├── simulate_model.R
+│   └── ...                    # Other function scripts
+├── man/                       # Rd documentation files
+│   ├── generate_network.Rd
+│   └── simulate_model.Rd
+|   └── ... 
+├── config/                    # Parameter configuration files 
+├── articles/                  # Usage and analysis examples
+│   └── within-herd.qmd
+|   └── ... 
+├── .gitignore                 # Git ignore list
+├── renv                       # package/environment management
+├── shiny                      # simple shiny (room-to-room demo)
+└── ODD_Decription.md          # Detailed model description
+```
+
