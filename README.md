@@ -1,7 +1,7 @@
 # challengeABM: Agent-Based Model of FMDV Transmission
 An Agent Based Model (ABM) simulating within-host virus dynamics, within-herd host transmission, and between-farm spread    
 
-This work is in draft form, has not been verified, and is subject to change. 
+This work is subject to change. 
 
 ## Install: 
 ```
@@ -12,17 +12,6 @@ remotes::install_github("geoepi/challengeABM")
 ## Overview, Design concepts, Details (ODD)
 ### [Detailed Agent-Based Model ODD](https://github.com/geoepi/challengeABM/blob/main/ODD_Decription.md)   
    
-## Vignettes  
-### [Room-to-Room Overview](https://github.com/geoepi/challengeABM/blob/main/articles/room_to_room_transmission.md)  
-  
-### [Within-Herd Overview](https://github.com/geoepi/challengeABM/blob/main/articles/within_herd_transmission.md) 
-
-### [Between-Farm Overview](https://github.com/geoepi/challengeABM/blob/main/articles/between_farms.md) 
-  
-  
-## Shiny  
-### [Simplified Room-to-Rooom ShinyApp](https://geoepi.shinyapps.io/fmdv-preclinical/)  
-  
 ---
 ---
 
@@ -39,6 +28,8 @@ remotes::install_github("geoepi/challengeABM")
     * [Core Mechanisms](#core-mechanisms)
     * [Parameters](#parameters)
 * [Directory Structure](#directory-structure)
+* [Vignettes](#vignettes)
+* [Shiny Apps](#shiny)  
 
 ---
 
@@ -147,4 +138,15 @@ challengeABM/
 ├── shiny                      # simple shiny (room-to-room demo)
 └── ODD_Decription.md          # Detailed model description
 ```
+---
 
+## Vignettes  
+### [Room-to-Room Overview](https://github.com/geoepi/challengeABM/blob/main/articles/room_to_room_transmission.md)  
+  
+### [Within-Herd Overview](https://github.com/geoepi/challengeABM/blob/main/articles/within_herd_transmission.md) 
+
+### [Between-Farm Overview](https://github.com/geoepi/challengeABM/blob/main/articles/between_farms.md) 
+  
+  
+## Shiny  
+### [Simplified Room-to-Rooom ShinyApp](https://geoepi.shinyapps.io/fmdv-preclinical/)  
