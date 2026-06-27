@@ -2,13 +2,14 @@
 An Agent Based Model (ABM) simulating within-host virus dynamics, room-to-room animal experiments, within-herd host transmission, and between-farm spread.     
    
 <br clear="right" />   
+  
 ---
    
   
    
    
            
-## Demonstartive Application:   
+## Demonstrative Application:   
 The following publication describes use of **challengeABM** for simulating foot-and-mouth disease dynamics in cattle:     
     
 ##### *Carolina Stenfeldt, John M. Humphreys & Jonathan Arzt*. Incubation phase transmission of foot-and-mouth disease virus in cattle: experimental evidence and simulated impacts. Scientific Reports (2026) [https://doi.org/10.1038/s41598-025-34132-x](https://doi.org/10.1038/s41598-025-34132-x)  
