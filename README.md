@@ -42,7 +42,7 @@ remotes::install_github("geoepi/challengeABM")
 
 ## Overview
 
-`challengeABM` is an agent-based modeling framework developed in R to simulate the transmission dynamics of Foot-and-Mouth Disease Virus (FMDV) in cattle. It is designed to explore the impact of various epidemiological factors, particularly preclinical transmission, on outbreak characteristics at different scales. The model allows for detailed simulation of within-host viral kinetics and its influence on transmission probability, as well as broader-scale dynamics such as inter-farm spread through animal movement.
+`challengeABM` is an agent-based modeling framework developed in R to simulate the transmission dynamics of Foot-and-Mouth Disease Virus (FMDV) and other veterinary pathogens in cattle. It is designed to explore the impact of various epidemiological factors, particularly preclinical transmission, on outbreak characteristics at different scales. The model allows for detailed simulation of within-host viral kinetics and its influence on transmission probability, as well as broader-scale dynamics such as inter-farm spread through animal movement.
 
 
 ## Model Purpose
