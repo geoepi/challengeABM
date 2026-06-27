@@ -1,6 +1,7 @@
 # challengeABM: Agent-Based Disease Transmission Model  <img src="images/challengeABM_sticker3.png" align="right" height="300" />
 An Agent Based Model (ABM) simulating within-host virus dynamics, room-to-room animal experiments, within-herd host transmission, and between-farm spread.     
    
+<br clear="right" />   
 ---
    
   
