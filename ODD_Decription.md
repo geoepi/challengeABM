@@ -34,8 +34,7 @@ Net website)](https://www.comses.net/resources/standards).
 **Model Purpose**
 
 The primary purpose of the “challengeABM” model is to investigate and
-evaluate how preclinical transmission of a pathogen, specifically
-Foot-and-Mouth Disease Virus (FMDV), influences outbreak dynamics both
+evaluate how preclinical transmission of a pathogen influences outbreak dynamics both
 within a single herd and between multiple farms. The model aims to
 assess whether pathogen transmission occurring before the onset of
 observable clinical signs significantly alters key epidemiological
@@ -58,7 +57,7 @@ derived from empirical studies and expected epidemiological behaviors,
 are used as qualitative and quantitative benchmarks:
 
 - **Empirical Transmission Observations:**
-  - The occurrence of FMDV transmission at least 24 hours before donor
+  - The occurrence of transmission at least 24 hours before donor
     animals exhibit clinical signs.
   - Observed variability in the timing of infection among different
     susceptible cohorts exposed sequentially to infected donors.
