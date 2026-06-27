@@ -49,11 +49,11 @@ remotes::install_github("geoepi/challengeABM")
 
 The primary purpose of `challengeABM` is to:
 
-1.  Investigate how **preclinical FMDV transmission** (infection spread before visible signs) influences outbreak dynamics within herds and between farms.
+1.  Investigate how **preclinical transmission** (infection spread before visible signs) influences outbreak dynamics within herds and between farms.
 2.  Assess the impact of preclinical infectiousness on key epidemiological outcomes such as **outbreak size, speed, and spatial extent**.
-3.  Simulate and **replicate findings from controlled FMDV transmission experiments**.
-4.  Provide a flexible platform to explore the potential effects of **different intervention strategies** (e.g., quarantine, movement restrictions) on FMDV spread.
-5.  Understand how **livestock movement patterns and network structures** contribute to regional FMDV epidemics.
+3.  Simulate and **replicate findings from controlled transmission experiments**.
+4.  Provide a flexible platform to explore the potential effects of **different intervention strategies** (e.g., quarantine, movement restrictions) on pathogen spread.
+5.  Understand how **livestock movement patterns and network structures** contribute to regional epidemics.
 
 ## Key Features
 
@@ -77,17 +77,17 @@ The primary purpose of `challengeABM` is to:
 
 ### Room-to-Room (R2R) Module
 
-* **Focus:** Simulates FMDV transmission in a controlled experimental setup where donor (infected) animals sequentially expose cohorts of susceptible animals in isolated rooms.
+* **Focus:** Simulates transmission in a controlled experimental setup where donor (infected) animals sequentially expose cohorts of susceptible animals in isolated rooms.
 * **Mechanisms:** Employs detailed within-host viral dynamics for each agent and a dose-response function based on donor viral load to determine transmission to susceptibles in the same room.
 
 ### Herd Module
 
-* **Focus:** Simulates FMDV transmission within a single, homogeneously mixed herd of cattle.
+* **Focus:** Simulates transmission within a single, homogeneously mixed herd of cattle.
 * **Mechanisms:** Agents have detailed within-host viral dynamics. Contacts between infectious and susceptible agents occur stochastically (Poisson process). Transmission success is governed by the infector's viral load and a dose-response model.
 
 ### Between-Farm Module
 
-* **Focus:** Simulates FMDV spread across a network of interconnected farms, driven by livestock movement.
+* **Focus:** Simulates spread across a network of interconnected farms, driven by livestock movement.
 * **Mechanisms:**
     * Each farm runs an internal herd simulation using a computationally efficient probabilistic state-transition model (`simulate_net_model`) where agents' progression through `Noninfectious`, `Preclinical`, and `Clinical` states is governed by Weibull-distributed durations.
     * Stochastic animal movements between farms (`simulate_farm_movements`) are based on network topology (Erdős–Rényi, small-world, or geometric with distance-weighting) and configurable movement probabilities/fractions.
