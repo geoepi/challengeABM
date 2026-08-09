@@ -1,0 +1,26 @@
+schema_version: 1
+
+project_id: fmd-patho
+subproject_id: fmd-challengeabm
+
+title: challengeABM: Agent-Based Disease Transmission Model
+summary: >
+  Agent Based Model (ABM) simulating within-host virus dynamics, room-to-room animal experiments, within-herd host transmission, and between-farm spread.
+
+lead:
+  name: John Humphreys
+  github: JMHumphreys
+
+status: paused
+current_focus: Temporarily paused, will eventually expand to other disease systems (VSV, HPAI).
+
+repository:
+  canonical: geoepi/challengeABM
+  upstream: null
+
+compute:
+  - Atlas
+
+next_milestone:
+  description: Expand to other pathogens
+  target: 2027-01-01
