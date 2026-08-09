@@ -3,7 +3,7 @@ schema_version: 1
 project_id: fmd-patho
 subproject_id: fmd-challengeabm
 
-title: challengeABM: Agent-Based Disease Transmission Model
+title: challengeABM an Agent-Based Disease Transmission Model
 summary: >
   Agent Based Model (ABM) simulating within-host virus dynamics, room-to-room animal experiments, within-herd host transmission, and between-farm spread.
 
